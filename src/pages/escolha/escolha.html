@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            <p color="detail">Detalhe do Produto</p>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <img src="assets/img/blusa.png"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{produto.nome}}
+      </ion-card-title>
+        <p id="descricao">
+          {{produto.descricao}}
+        </p>
+      <br>
+      <ion-item-divider>
+        <ion-card-header>
+          Informações
+        </ion-card-header>
+        <h5><b>Preço:</b> R$ {{produto.preco}}</h5>
+        <h5><b>Cor:</b> {{produto.cor}}</h5>
+        <h5><b>Tamanho:</b> {{produto.tamanho}}</h5>
+        <h5><b>Data Cadastro:</b> {{produto.data_cadastro}}</h5>
+      </ion-item-divider>
+
+      <br><br>
+
+      <button color="search-buttom" id="compartilhar" ion-button outline icon-only>
+        <ion-icon ios="ios-share-alt" md="md-share-alt"></ion-icon>
+      </button>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content >

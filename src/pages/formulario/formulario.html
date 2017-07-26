@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            <p color="detail">QUASE LÁ</p>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form (ngSubmit)="continuar()">
+      <ion-item>
+        <ion-label color="twitterDarkBlue" floating>Nome</ion-label>
+        <ion-input name="nome" [(ngModel)]="nome" maxlength="20" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="twitterDarkBlue" floating>Descrição</ion-label>
+        <ion-input name="descricao" [(ngModel)]="descricao" maxlength="100" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="twitterDarkBlue" floating>Preço</ion-label>
+        <ion-input type="number" name="preco" [(ngModel)]="preco"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="twitterDarkBlue" floating>Cor</ion-label>
+        <ion-input name="cor" [(ngModel)]="cor" clearInput></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="twitterDarkBlue" floating>Tamanho</ion-label>
+        <ion-input name="tamanho" [(ngModel)]="tamanho" clearInput></ion-input>
+      </ion-item>
+
+      <br>
+
+      <button [color]="myColor" [round]="isRound" ion-button block type="submit">
+          CONTINUAR CADASTRO
+      </button>
+    </form>
+</ion-content>
+
+

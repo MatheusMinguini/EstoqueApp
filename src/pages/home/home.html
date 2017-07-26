@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title >
+      <p color="detail">PROCURA LÁ</p>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div *ngIf="produtos.length == 0">
+    <div class="card-background-page">
+      <ion-card>
+        <img src="assets/img/eventos.png"/>
+
+        <div class="card-title">Cadastre Produtos!</div>
+
+        <ion-card-content>
+          <p>Iremos procurá-los para você</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <div *ngIf="produtos.length > 0">
+    <ion-list *ngFor="let produto of produtos">
+      <ion-item-sliding >
+        <ion-item (click)="seleciona(produto)">
+
+          <ion-avatar *ngIf="produto.img == null" item-left>
+            <img src="assets/img/semImagem.gif" alt="Evento">
+          </ion-avatar>
+
+          <ion-avatar *ngIf="produto.img != null" item-left>
+            <img src="assets/img/blusa.png" alt="Evento">
+          </ion-avatar>
+
+          <h2 color="twitterDarkBlue">{{produto.nome}}</h2>
+          <p>Preço: {{produto.preco}}</p>
+          <p>Cor: {{produto.cor}}</p>
+          <p>Tamanho: {{produto.tamanho}}</p>
+        </ion-item>
+
+        <ion-item-options>
+          <button ion-button color="danger" (click)="remover(produto)">
+            <ion-icon ios="ios-trash" md="md-trash"></ion-icon> Excluir
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="#00aced" (click)="cadastra()">
+      <ion-icon ios="ios-add" md="md-add"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-fab left bottom>
+    <button ion-fab color="search-buttom" (click)="pesquisa()">
+      <ion-icon ios="ios-search" md="md-search"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

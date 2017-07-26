@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <p color="detail">Procurar Produto</p>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form>
+    <ion-item>
+      <ion-label color="app" floating>Nome</ion-label>
+      <ion-input name="nome" [(ngModel)]="nome" maxlength="20" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="app" floating>Descrição</ion-label>
+      <ion-input name="descricao" [(ngModel)]="descricao" maxlength="50" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="app" floating>Preço</ion-label>
+      <ion-input type="number" name="preco" [(ngModel)]="preco"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="app" floating>Cor</ion-label>
+      <ion-input name="cor" [(ngModel)]="cor" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="app" floating>Tamanho</ion-label>
+      <ion-input name="tamanho" [(ngModel)]="tamanho" clearInput></ion-input>
+    </ion-item>
+    <br>
+    <button [color]="myColor" [round]="isRound" ion-button block (click)="pesquisar()">
+
+       <ion-icon ios="ios-search" md="md-search"></ion-icon>BUSCAR
+
+    </button>
+  </form>
+</ion-content>
+

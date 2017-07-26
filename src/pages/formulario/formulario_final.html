@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+       <p color="detail">FINALIZAR CADASTRO</p>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item class="gallery-button" text-center>
+    <img src="assets/img/semImagem.gif" alt="Evento">
+    <!--<img [src]="imageSrc"/>-->
+  </ion-item>
+
+  <ion-item text-center>
+    <ion-icon name="images" ios="ios-images" md="md-images" on-tap="openGallery()"></ion-icon>
+    <p color="twitterDarkBlue"><b>Escolha uma Imagem</b></p>
+  </ion-item>
+
+  <br>
+
+  <button [color]="myColor" [round]="isRound" ion-button block (click)="salvar()">
+          FINALIZAR CADASTRO
+  </button>
+
+</ion-content>
