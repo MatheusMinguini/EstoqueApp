@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController,  LoadingController, AlertController, Alert, NavParams } from 'ionic-angular';
 import { Produto } from '../../models/Produto';
+import { Grupo } from '../../models/Grupo';
 import { Http } from '@angular/http';
 import { ResultadoPage } from '../resultado/resultado';
 
@@ -15,6 +16,8 @@ export class PesquisaPage{
   public preco : number;
   public cor : String;
   public tamanho : String;
+  public grupo : Grupo;
+
   public _mensagem : Alert;
 
   produtos: Produto[] = [];
@@ -27,19 +30,19 @@ export class PesquisaPage{
   }
 
   pesquisar(){
-  let produto = new Produto (this.nome, this.descricao, this.preco, this.cor, this.tamanho);
+  //let produto = new Produto (this.nome, this.descricao, this.preco, this.cor, this.tamanho, this.grupo);
 
   let api = 'http://localhost:3010/filtrar';
 
-  this._http.post(api, produto)
-    .map(resp => resp.json())
-      .toPromise().then(elemento => {
-      this.produtos = elemento;
-      this.navCtrl.push(ResultadoPage, { produtosEncontrados: this.produtos});
-  }).catch (erro => {
-      this.navCtrl.push(ResultadoPage, { produtosEncontrados: this.produtos});
-      console.log(erro);
-  });
+  // this._http.post(api, produto)
+  //   .map(resp => resp.json())
+  //     .toPromise().then(elemento => {
+  //     this.produtos = elemento;
+  //     this.navCtrl.push(ResultadoPage, { produtosEncontrados: this.produtos});
+  // }).catch (erro => {
+  //     this.navCtrl.push(ResultadoPage, { produtosEncontrados: this.produtos});
+  //     console.log(erro);
+  // });
 }
 }
 

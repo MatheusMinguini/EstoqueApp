@@ -10,27 +10,42 @@
     <form (ngSubmit)="continuar()">
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Nome</ion-label>
-        <ion-input name="nome" [(ngModel)]="nome" maxlength="20" clearInput></ion-input>
+        <ion-input name="nome" [(ngModel)]="produto.nome" maxlength="20" clearInput></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Descrição</ion-label>
-        <ion-input name="descricao" [(ngModel)]="descricao" maxlength="100" clearInput></ion-input>
+        <ion-input name="descricao" [(ngModel)]="produto.descricao" maxlength="100" clearInput></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Preço</ion-label>
-        <ion-input type="number" name="preco" [(ngModel)]="preco"></ion-input>
+        <ion-input type="number" name="preco" [(ngModel)]="produto.preco"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Cor</ion-label>
-        <ion-input name="cor" [(ngModel)]="cor" clearInput></ion-input>
+        <ion-input name="cor" [(ngModel)]="produto.cor" clearInput></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Tamanho</ion-label>
-        <ion-input name="tamanho" [(ngModel)]="tamanho" clearInput></ion-input>
+        <ion-input name="tamanho" [(ngModel)]="produto.tamanho" clearInput></ion-input>
+      </ion-item>
+
+      <br>
+
+      <ion-item>
+        <ion-label color="twitterDarkBlue">Grupo</ion-label>
+        <ion-select [(ngModel)]="produto.grupo" multiple="false" [ngModelOptions]="{standalone: true}">
+          <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="twitterDarkBlue">Gênero</ion-label>
+        <ion-checkbox [(ngModel)]="pepperoni" [ngModelOptions]="{standalone: true}">Masculino</ion-checkbox>
+        <ion-checkbox [(ngModel)]="pepperoni" [ngModelOptions]="{standalone: true}">Feminino</ion-checkbox>
       </ion-item>
 
       <br>

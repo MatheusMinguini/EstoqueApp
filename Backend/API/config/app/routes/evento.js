@@ -27,6 +27,18 @@ module.exports = function rotas(app){
         connection.end();
     });
 
+    app.get("/grupos", function(request, response){
+        
+        var connection = dbConnection();
+
+        eventoBanco.listarGrupos(connection, function(erro, result){
+          response.send(result);
+          console.log(erro);
+        });
+
+        connection.end();
+    });
+
      app.post("/salvar", function(request, response){
 
         var produto = request.body;

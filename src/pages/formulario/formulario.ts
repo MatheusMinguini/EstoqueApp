@@ -3,6 +3,7 @@ import { NavParams, NavController, AlertController, Alert } from 'ionic-angular'
 import { Http } from '@angular/http';
 import { HomePage } from '../home/home';
 import { Produto } from '../../models/Produto';
+import { Grupo } from '../../models/Grupo';
 import { FormularioCadastroPage } from '../formulario/formulario_final';
 
 @Component({
@@ -11,15 +12,17 @@ import { FormularioCadastroPage } from '../formulario/formulario_final';
 })
 
 export class FormularioPage{
-  public nome : String;
-  public descricao : String;
-  public preco : number;
-  public cor : String;
-  public tamanho : String;
+
+  public produto : Produto;
+
   public _mensagem : Alert;
 
-  myColor: string = 'search-buttom';
-  isRound: boolean = false;
+  _API: string
+
+  public grupos : Array<Grupo>;
+
+  myColor: string;
+  isRound: boolean;
 
 
   constructor(public parametro : NavParams ,
@@ -27,18 +30,24 @@ export class FormularioPage{
       public _http: Http,
       public _alert : AlertController){
 
+      this.produto = new Produto();
+
       this._mensagem = _alert.create({
           title : 'Aviso',
           buttons : [{text : 'Ok', handler : () => this._navController.setRoot(HomePage)}]
       })
+
+      this.myColor = 'search-buttom';
+      this.isRound = false;
+
+      this._API = 'http://localhost:3010';
+
+      this.buscarGrupos();
   }
 
   continuar(){
-
-    let produto = new Produto (this.nome, this.descricao, this.preco, this.cor, this.tamanho);
-
-    if(produto.verificarCamposObrigatorios(produto)){
-      this._navController.push(FormularioCadastroPage,  { produtoSalvar: produto});
+    if(this.produto.verificarCamposObrigatorios(this.produto)){
+      this._navController.push(FormularioCadastroPage,  { produtoSalvar: this.produto});
     }else{
         this._alert.create({
             title : 'Campos obrigatórios',
@@ -47,4 +56,17 @@ export class FormularioPage{
         }).present();
     }
   }
+
+  buscarGrupos(){
+    this._http.get(this._API + '/grupos')
+     .map(resp => resp.json())
+      .toPromise()
+       .then(elemento => {
+          this.grupos = elemento;
+      }).catch (erro => {
+        this.grupos =  null;
+        console.log(erro);
+      });
+  }
+
 }

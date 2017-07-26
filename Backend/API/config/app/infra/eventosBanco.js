@@ -4,6 +4,10 @@ module.exports =  function(){
         connection.query("SELECT * FROM produto ORDER BY data_cadastro", callback);
     }
 
+    this.listarGrupos = function(connection, callback){
+        connection.query("SELECT * FROM grupo", callback);
+    }
+
     this.consultaPorId = function(connection, id, callback){
         connection.query("SELECT * FROM produto WHERE id = " + id, callback);
     }
@@ -13,8 +17,8 @@ module.exports =  function(){
         const data_atual = new Date();
         let data = new Date(data_atual);
 
-        var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro) VALUES
-         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_atual}')`;
+        var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, grupo_id) VALUES
+         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_atual}', ${objeto.grupo})`;
 
         console.log(sql);
 

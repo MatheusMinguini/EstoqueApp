@@ -1,17 +1,17 @@
+import { Grupo } from '../models/Grupo';
+
 export class Produto{
   nome : String;
   descricao: String;
   preco : number;
   cor : String;
   tamanho : String;
+  grupo : number;
 
-  constructor(nome, descricao, preco, cor, tamanho){
-    this.nome = nome;
-    this.descricao = descricao;
-    this.preco = preco;
-    this.cor = cor;
-    this.tamanho = tamanho;
+  constructor(){
+
   }
+
 
   verificarCamposObrigatorios(objeto){
         if(!objeto.nome || !objeto.descricao || !objeto.preco || !objeto.cor || !objeto.tamanho){

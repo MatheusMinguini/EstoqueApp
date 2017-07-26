@@ -14,6 +14,8 @@ import { Produto } from '../../models/Produto'
 })
 export class HomePage implements OnInit{
 
+   _API: string
+
   public _mensagem : Alert;
   public produtos : Produto[] = [];
 
@@ -22,6 +24,8 @@ export class HomePage implements OnInit{
               private _loadingCtrl: LoadingController,
               private _alertCtrl: AlertController
               ) {
+
+    this._API = 'http://localhost:3010';
 
     this._mensagem = _alertCtrl.create({
       title : 'Aviso',
@@ -40,7 +44,7 @@ export class HomePage implements OnInit{
 
       loader.present();
 
-     this._http.get('http://localhost:3010/produtos')
+     this._http.get(this._API + '/produtos')
      .map(resp => resp.json())
       .toPromise()
         .then(elemento => {
@@ -79,9 +83,8 @@ export class HomePage implements OnInit{
   }
 
   remover(evento){
-    let api = 'http://localhost:3010/remover';
 
-    this._http.post(api, evento)
+    this._http.post(this._API + '/remover', evento)
       .map(resp => resp.json())
         .toPromise().then(elemento => {
            this._mensagem.setSubTitle('Evento removido');
