@@ -1,49 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController,  LoadingController, AlertController, Alert, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
 import { Http } from '@angular/http';
 import { ResultadoPage } from '../resultado/resultado';
+import { Configuracao } from '../../services/config.service';
 
 @Component({
+  providers : [ Configuracao ],
   selector: 'pesquisa',
   templateUrl: 'pesquisa.html'
 })
 
 export class PesquisaPage{
-  public nome : String;
-  public descricao : String;
-  public preco : number;
-  public cor : String;
-  public tamanho : String;
-  public grupo : Grupo;
 
-  public _mensagem : Alert;
+  public produto: Produto;
 
   produtos: Produto[] = [];
+
+  cores: Array<String>;
 
   myColor: string = 'search-buttom';
   isRound: boolean = false;
 
-  constructor( public _http: Http, public navCtrl: NavController ){
+  constructor( public _http: Http, public navCtrl: NavController, public _configuracao: Configuracao){
+      this.produto = new Produto();
+      this.buscarCores();
+  }
 
+  buscarCores(){
+    this._http.get(this._configuracao.getAdressAPI() + '/cores')
+      .map(resp => resp.json())
+        .toPromise().then(elemento => {
+        this.cores = elemento.cor;
+    }).catch (erro => {
+        console.log(erro);
+    });
   }
 
   pesquisar(){
-  //let produto = new Produto (this.nome, this.descricao, this.preco, this.cor, this.tamanho, this.grupo);
 
-  let api = 'http://localhost:3010/filtrar';
+    this._http.post(this._configuracao.getAdressAPI() + '/filtrar', this.produto)
+      .map(resp => resp.json())
+        .toPromise().then(elemento => {
+        this.produtos = elemento;
+        console.log(this.produtos);
+        //this.navCtrl.push(ResultadoPage, { produtosEncontrados: this.produtos});
+    }).catch (erro => {
 
-  // this._http.post(api, produto)
-  //   .map(resp => resp.json())
-  //     .toPromise().then(elemento => {
-  //     this.produtos = elemento;
-  //     this.navCtrl.push(ResultadoPage, { produtosEncontrados: this.produtos});
-  // }).catch (erro => {
-  //     this.navCtrl.push(ResultadoPage, { produtosEncontrados: this.produtos});
-  //     console.log(erro);
-  // });
-}
+        console.log(erro);
+    });
+  }
 }
 
 

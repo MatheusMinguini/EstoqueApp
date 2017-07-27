@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams } from 'ionic-angular';
+import { Produto } from '../../models/Produto'
 
 @Component({
     selector : 'escolha',
@@ -8,13 +9,13 @@ import { NavParams } from 'ionic-angular';
 
 export class EscolhaPage{
 
-    public produto : Object;
+    public produto : Produto;
 
     constructor(public parametro : NavParams){
 
     }
 
     ngOnInit(){
-         this.produto = this.parametro.get('produtoSelecionado');
+      this.produto = this.parametro.get('produtoSelecionado');
     }
 }

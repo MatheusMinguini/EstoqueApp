@@ -1,5 +1,3 @@
-import { Grupo } from '../models/Grupo';
-
 export class Produto{
   nome : String;
   descricao: String;
@@ -8,14 +6,15 @@ export class Produto{
   tamanho : String;
   grupo : number;
   genero: string;
+  data_cadastro: Date;
 
   constructor(){
 
   }
 
-
   verificarCamposObrigatorios(objeto){
-        if(!objeto.nome || !objeto.descricao || !objeto.preco || !objeto.cor || !objeto.tamanho){
+        if(!objeto.nome || !objeto.descricao || !objeto.preco || !objeto.cor || !objeto.tamanho
+         /* || !objeto.grupo*/ || !objeto.genero){
             return false;
         }else{
             return true;

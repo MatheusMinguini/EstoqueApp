@@ -12,7 +12,7 @@
     <img src="assets/img/blusa.png"/>
     <ion-card-content>
       <ion-card-title color="twitterDarkBlue">
-        {{produto.nome}}
+        <b>{{produto.nome | uppercase}}</b>
       </ion-card-title>
         <p id="descricao">
           {{produto.descricao}}
@@ -25,9 +25,9 @@
         <h5 color="dark-grey"><b>Preço:</b> R$ {{produto.preco}}</h5>
         <h5 color="dark-grey"><b>Cor:</b> {{produto.cor}}</h5>
         <h5 color="dark-grey"><b>Tamanho:</b> {{produto.tamanho}}</h5>
-        <h5 color="dark-grey"><b>Data Cadastro:</b> {{produto.data_cadastro}}</h5>
+        <h5 color="dark-grey"><b>Data Cadastro:</b> {{produto.data_cadastro | date:"dd/MM/yyyy"}}</h5>
 
-        <h5 color="dark-grey"><b>Data Cadastro:</b> {{produto.data_cadastro}}</h5>
+        <h5 color="dark-grey"><b>Grupo:</b> {{produto.grupo}}</h5>
 
         <h5 color="dark-grey" *ngIf="produto.genero === 'm'"><b>Público: </b>Masculino</h5>
 

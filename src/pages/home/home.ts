@@ -5,16 +5,16 @@ import { EscolhaPage } from '../escolha/escolha';
 import { FormularioPage } from '../formulario/formulario';
 import { PesquisaPage } from '../pesquisa/pesquisa';
 import { Produto } from '../../models/Produto'
+import { Configuracao } from '../../services/config.service';
 
 
 
 @Component({
+  providers : [ Configuracao ],
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage implements OnInit{
-
-   _API: string
 
   public _mensagem : Alert;
   public produtos : Produto[] = [];
@@ -22,11 +22,9 @@ export class HomePage implements OnInit{
   constructor(public navCtrl: NavController,
               private _http: Http,
               private _loadingCtrl: LoadingController,
-              private _alertCtrl: AlertController
+              private _alertCtrl: AlertController,
+              public _configuracao: Configuracao
               ) {
-
-    this._API = 'http://localhost:3010';
-
     this._mensagem = _alertCtrl.create({
       title : 'Aviso',
       buttons : [{ text : "Tudo bem", handler : () => this.navCtrl.setRoot(HomePage)}]
@@ -44,12 +42,11 @@ export class HomePage implements OnInit{
 
       loader.present();
 
-     this._http.get(this._API + '/produtos')
+     this._http.get(this._configuracao.getAdressAPI() + '/produtos')
      .map(resp => resp.json())
       .toPromise()
         .then(elemento => {
           this.produtos = elemento;
-          console.log(this.produtos);
           loader.dismiss();
         }).catch (erro => {
           loader.dismiss();
@@ -83,8 +80,7 @@ export class HomePage implements OnInit{
   }
 
   remover(evento){
-
-    this._http.post(this._API + '/remover', evento)
+    this._http.post(this._configuracao.getAdressAPI() + '/remover', evento)
       .map(resp => resp.json())
         .toPromise().then(elemento => {
            this._mensagem.setSubTitle('Evento removido');

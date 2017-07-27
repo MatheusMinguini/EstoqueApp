@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <p color="detail">Procurar Produto</p>
+      <p color="detail">ENCONTRE</p>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,30 +9,65 @@
 <ion-content padding>
   <form>
     <ion-item>
-      <ion-label color="app" floating>Nome</ion-label>
-      <ion-input name="nome" [(ngModel)]="nome" maxlength="20" clearInput></ion-input>
+      <ion-label color="twitterDarkBlue" floating>Nome</ion-label>
+      <ion-input name="nome" [(ngModel)]="produto.nome" maxlength="20" clearInput></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label color="app" floating>Descrição</ion-label>
-      <ion-input name="descricao" [(ngModel)]="descricao" maxlength="50" clearInput></ion-input>
+      <ion-label color="twitterDarkBlue" floating>Descrição</ion-label>
+      <ion-input name="descricao" [(ngModel)]="produto.descricao" maxlength="50" clearInput></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label color="app" floating>Preço</ion-label>
-      <ion-input type="number" name="preco" [(ngModel)]="preco"></ion-input>
+      <ion-label color="twitterDarkBlue" floating>Preço</ion-label>
+      <ion-input type="number" name="preco" [(ngModel)]="produto.preco"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label color="app" floating>Cor</ion-label>
-      <ion-input name="cor" [(ngModel)]="cor" clearInput></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="app" floating>Tamanho</ion-label>
-      <ion-input name="tamanho" [(ngModel)]="tamanho" clearInput></ion-input>
-    </ion-item>
     <br>
+
+    <!-- <ion-item>
+      <ion-label color="twitterDarkBlue" floating> Cor </ion-label>
+      <ion-select [(ngModel)]="produto.cor" multiple="false" [ngModelOptions]="{standalone: true}">
+        <ion-option *ngFor="let cor of cores" [value]="cor" >{{cor}}</ion-option>
+      </ion-select>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label color="twitterDarkBlue" floating>Tamanho</ion-label>
+      <ion-input name="tamanho" [(ngModel)]="produto.tamanho" clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label  color="twitterDarkBlue" floating>Data do Cadastro</ion-label>
+      <ion-datetime name="data_evento" [(ngModel)]="produto.data_cadastro" displayFormat="DD/MM/YY"></ion-datetime>
+    </ion-item>
+
+    <br>
+
+      <!-- <ion-item>
+        <ion-label color="twitterDarkBlue">Grupo</ion-label>
+        <ion-select [(ngModel)]="produto.grupo" multiple="false" [ngModelOptions]="{standalone: true}">
+          <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
+        </ion-select>
+      </ion-item> -->
+
+      <ion-card>
+        <ion-card-header>
+          Público
+        </ion-card-header>
+
+        <ion-list radio-group [(ngModel)]="produto.genero" [ngModelOptions]="{standalone: true}">
+          <ion-item>
+            <ion-label color="twitterDarkBlue">Masculino</ion-label>
+            <ion-radio value="m" checked></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label color="twitterDarkBlue">Feminino</ion-label>
+            <ion-radio value="f"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+
     <button [color]="myColor" [round]="isRound" ion-button block (click)="pesquisar()">
 
        <ion-icon ios="ios-search" md="md-search"></ion-icon>BUSCAR

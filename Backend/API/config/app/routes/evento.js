@@ -3,12 +3,38 @@ var eventoBanco = require("../infra/eventosBanco")();
 
 
 module.exports = function rotas(app){
+
     app.get("/produtos", function(request, response){
         var connection = dbConnection();
 
         eventoBanco.listar(connection, function(erro, result){
           response.send(result);
-          console.log(erro);
+          if(erro != null) console.log(erro);
+        });
+
+        connection.end();
+    });
+
+    app.get("/grupos", function(request, response){
+        
+        var connection = dbConnection();
+
+        eventoBanco.listarGrupos(connection, function(erro, result){
+          response.send(result);
+          if(erro != null) console.log(erro);
+        });
+
+        connection.end();
+    });
+
+    app.get("/cores", function(request, response){
+        
+        var connection = dbConnection();
+
+        eventoBanco.listarCores(connection, function(erro, result){
+          response.send(result);
+          if(erro != null) console.log(erro);
+          
         });
 
         connection.end();
@@ -21,61 +47,52 @@ module.exports = function rotas(app){
 
         eventoBanco.consultaPorId(connection, id, function(erro, result){
           response.send(result);
-          console.log(erro);
+          if(erro != null) console.log(erro);
         });
 
         connection.end();
     });
 
-    app.get("/grupos", function(request, response){
-        
-        var connection = dbConnection();
+   
+    app.post("/salvar", function(request, response){
 
-        eventoBanco.listarGrupos(connection, function(erro, result){
-          response.send(result);
-          console.log(erro);
-        });
+      var produto = request.body;
 
-        connection.end();
+      var connection = dbConnection();
+
+      eventoBanco.salvar(connection, produto, function(erro, result){
+        response.send(result);
+        if(erro != null) console.log(erro);
+      });
+
+      connection.end();
     });
 
-     app.post("/salvar", function(request, response){
+    app.post("/remover", function(request, response){
 
-        var produto = request.body;
+      var produto = request.body;
+    
+      var connection = dbConnection();
 
-        var connection = dbConnection();
-
-        eventoBanco.salvar(connection, produto, function(erro, result){
-          response.send(result);
-          console.log(erro);
-        });
-
-        connection.end();
+      eventoBanco.remover(connection, produto, function(erro, result){
+        response.send(result);
+        if(erro != null) console.log(erro);
       });
 
-      app.post("/remover", function(request, response){
+      connection.end();
+    });
 
-         var produto = request.body;
-      
-         var connection = dbConnection();
+    app.post("/filtrar", function(request, response){
 
-         eventoBanco.remover(connection, produto, function(erro, result){
-           response.send(result);
-           console.log(erro);
-         });
-         connection.end();
+      var produto = request.body;
+    
+      var connection = dbConnection();
+
+      eventoBanco.filtrar(connection, produto, function(erro, result){
+        response.send(result);
+        if(erro != null) console.log(erro);
       });
 
-      app.post("/filtrar", function(request, response){
-
-         var produto = request.body;
-      
-         var connection = dbConnection();
-
-         eventoBanco.filtrar(connection, produto, function(erro, result){
-           response.send(result);
-           console.log(erro);
-         });
-         connection.end();
-      });
+      connection.end();
+    });
 }

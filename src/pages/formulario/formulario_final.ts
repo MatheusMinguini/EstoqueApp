@@ -3,8 +3,10 @@ import { NavParams, NavController, AlertController, Alert } from 'ionic-angular'
 import { Http } from '@angular/http';
 import { HomePage } from '../home/home';
 import { Produto } from '../../models/Produto';
+import { Configuracao } from '../../services/config.service';
 
 @Component({
+  providers: [ Configuracao ],
   selector: 'formulario_final',
   templateUrl: 'formulario_final.html'
 })
@@ -18,7 +20,7 @@ export class FormularioCadastroPage {
     constructor(public parametro : NavParams ,
       public _navController: NavController,
       public _http: Http,
-      public _alert : AlertController){
+      public _alert : AlertController, public _configuracao: Configuracao){
 
         this._mensagem = _alert.create({
           title: 'Aviso',
@@ -29,11 +31,9 @@ export class FormularioCadastroPage {
 
     salvar(){
       this.produto = this.parametro.get('produtoSalvar');
-      console.log(this.produto);
 
-      let api = 'http://localhost:3010/salvar';
-
-      this._http.post(api, this.produto).toPromise().then(elemento => {
+      this._http.post(this._configuracao.getAdressAPI() + '/salvar', this.produto)
+        .toPromise().then(elemento => {
           this._mensagem.setSubTitle('Produto cadastrado com sucesso');
           this._mensagem.present();
       }).catch (erro => {

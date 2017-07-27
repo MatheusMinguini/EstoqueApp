@@ -8,6 +8,10 @@ module.exports =  function(){
         connection.query("SELECT * FROM grupo", callback);
     }
 
+    this.listarCores = function(connection, callback){
+        connection.query("SELECT DISTINCT(cor) FROM produto", callback);
+    }
+
     this.consultaPorId = function(connection, id, callback){
         connection.query("SELECT * FROM produto WHERE id = " + id, callback);
     }
@@ -15,10 +19,13 @@ module.exports =  function(){
     this.salvar = function(connection, objeto, callback){
 
         const data_atual = new Date();
-        let data = new Date(data_atual);
+        let data_banco = data_atual.toISOString().substring(0, 10);
 
-        var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, grupo_id, genero) VALUES
-         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_atual}', ${objeto.grupo}, '${objeto.genero}')`;
+        // var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, grupo_id, genero) VALUES
+        //  ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_atual}', ${objeto.grupo}, '${objeto.genero}')`;
+
+        var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, genero) VALUES
+         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_banco}', '${objeto.genero}')`;
 
         console.log(sql);
 
@@ -56,6 +63,17 @@ module.exports =  function(){
             sql = sql + ` AND p.tamanho LIKE '%${objeto.tamanho}%'`;
         }
 
+        if(objeto.grupo){
+            sql = sql + ` AND p.grupo_id = ${objeto.grupo}%`;
+        }
+
+        if(objeto.genero){
+            sql = sql + ` AND p.genero LIKE '%${objeto.genero}%'`;
+        }
+
+        if(objeto.data_cadastro){
+            sql = sql + ` AND p.data_cadastro = '${objeto.data_cadastro}'`;
+        }
         console.log(sql);
         connection.query(sql, callback);
     }
