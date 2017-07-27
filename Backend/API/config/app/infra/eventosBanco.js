@@ -17,8 +17,8 @@ module.exports =  function(){
         const data_atual = new Date();
         let data = new Date(data_atual);
 
-        var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, grupo_id) VALUES
-         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_atual}', ${objeto.grupo})`;
+        var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, grupo_id, genero) VALUES
+         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_atual}', ${objeto.grupo}, '${objeto.genero}')`;
 
         console.log(sql);
 

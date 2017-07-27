@@ -7,6 +7,7 @@ export class Produto{
   cor : String;
   tamanho : String;
   grupo : number;
+  genero: string;
 
   constructor(){
 

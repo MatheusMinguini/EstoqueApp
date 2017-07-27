@@ -9,7 +9,6 @@ import { FormularioCadastroPage } from '../pages/formulario/formulario_final';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-
 @NgModule({
   declarations: [
     MyApp,

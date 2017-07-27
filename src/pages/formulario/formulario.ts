@@ -4,11 +4,13 @@ import { Http } from '@angular/http';
 import { HomePage } from '../home/home';
 import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
+import { GrupoService } from '../../services/grupo.service';
 import { FormularioCadastroPage } from '../formulario/formulario_final';
 
 @Component({
+    providers : [ GrupoService ],
     selector : 'formulario',
-    templateUrl : 'formulario.html'
+    templateUrl : 'formulario.html'  
 })
 
 export class FormularioPage{
@@ -25,9 +27,9 @@ export class FormularioPage{
   isRound: boolean;
 
 
-  constructor(public parametro : NavParams ,
-      public _navController: NavController,
-      public _http: Http,
+  constructor( public _grupoService : GrupoService, public parametro : NavParams ,
+      public _navController : NavController,
+      public _http : Http,
       public _alert : AlertController){
 
       this.produto = new Produto();
@@ -42,7 +44,7 @@ export class FormularioPage{
 
       this._API = 'http://localhost:3010';
 
-      this.buscarGrupos();
+      //this.grupos = this._grupoService.buscarGrupos();
   }
 
   continuar(){
@@ -58,15 +60,17 @@ export class FormularioPage{
   }
 
   buscarGrupos(){
-    this._http.get(this._API + '/grupos')
-     .map(resp => resp.json())
-      .toPromise()
-       .then(elemento => {
-          this.grupos = elemento;
-      }).catch (erro => {
-        this.grupos =  null;
-        console.log(erro);
-      });
+
+    
+    // this._http.get(this._API + '/grupos')
+    //  .map(resp => resp.json())
+    //   .toPromise()
+    //    .then(elemento => {
+    //       this.grupos = elemento;
+    //   }).catch (erro => {
+    //     this.grupos =  null;
+    //     console.log(erro);
+    //   });
   }
 
 }
