@@ -5,6 +5,7 @@ import { HomePage } from '../pages/home/home';
 import { EscolhaPage } from '../pages/escolha/escolha';
 import { FormularioPage } from '../pages/formulario/formulario';
 import { PesquisaPage } from '../pages/pesquisa/pesquisa';
+import { ResultadoPage } from '../pages/resultado/resultado';
 import { FormularioCadastroPage } from '../pages/formulario/formulario_final';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/toPromise';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage, EscolhaPage, FormularioPage, PesquisaPage, FormularioCadastroPage
+    HomePage, EscolhaPage, FormularioPage, PesquisaPage, ResultadoPage, FormularioCadastroPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -24,6 +25,7 @@ import 'rxjs/add/operator/toPromise';
     EscolhaPage,
     FormularioPage,
     PesquisaPage,
+    ResultadoPage,
     FormularioCadastroPage
   ],
   providers: [

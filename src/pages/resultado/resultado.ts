@@ -9,8 +9,7 @@ import { Produto } from '../../models/Produto'
 
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'resultado.html'
 })
 export class ResultadoPage implements OnInit{
 

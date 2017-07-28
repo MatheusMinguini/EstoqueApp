@@ -1,25 +1,15 @@
 <ion-header>
   <ion-navbar>
     <ion-title >
-      <p color="detail">RESULTADOS</p>
+      <p color="detail">Lista de resultados</p>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <div *ngIf="produtos.length == 0">
-    <div class="card-background-page">
-      <ion-card>
-        <img src="assets/img/eventos.png"/>
-
-        <div class="card-title">Nenhum Produto encontrado!</div>
-    </div>
-  </div>
-
-  <div *ngIf="produtos.length > 0">
     <ion-list *ngFor="let produto of produtos">
-      <ion-item-sliding >
+      <ion-item-sliding>
         <ion-item (click)="seleciona(produto)">
 
           <ion-avatar *ngIf="produto.img == null" item-left>
@@ -41,9 +31,9 @@
             <ion-icon ios="ios-trash" md="md-trash"></ion-icon> Excluir
           </button>
         </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-  </div>
+    </ion-item-sliding>
+  </ion-list>
+
 
   <ion-fab right bottom>
     <button ion-fab color="#00aced" (click)="cadastra()">

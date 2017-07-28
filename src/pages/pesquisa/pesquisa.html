@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <p color="detail">ENCONTRE</p>
+      <p color="detail">Encontre Produtos</p>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -25,12 +25,12 @@
 
     <br>
 
-    <!-- <ion-item>
-      <ion-label color="twitterDarkBlue" floating> Cor </ion-label>
+    <ion-item>
+      <ion-label color="twitterDarkBlue"> Cor </ion-label>
       <ion-select [(ngModel)]="produto.cor" multiple="false" [ngModelOptions]="{standalone: true}">
         <ion-option *ngFor="let cor of cores" [value]="cor" >{{cor}}</ion-option>
       </ion-select>
-    </ion-item> -->
+    </ion-item>
 
     <ion-item>
       <ion-label color="twitterDarkBlue" floating>Tamanho</ion-label>
@@ -43,17 +43,17 @@
     </ion-item>
 
     <br>
-
-      <!-- <ion-item>
+<!--
+       <ion-item>
         <ion-label color="twitterDarkBlue">Grupo</ion-label>
         <ion-select [(ngModel)]="produto.grupo" multiple="false" [ngModelOptions]="{standalone: true}">
           <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
         </ion-select>
-      </ion-item> -->
+      </ion-item>  -->
 
       <ion-card>
-        <ion-card-header>
-          Público
+        <ion-card-header  color="twitterDarkBlue">
+          <b>Público</b>
         </ion-card-header>
 
         <ion-list radio-group [(ngModel)]="produto.genero" [ngModelOptions]="{standalone: true}">
