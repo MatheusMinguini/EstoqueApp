@@ -40,6 +40,19 @@ module.exports = function rotas(app){
         connection.end();
     });
 
+    app.get("/tamanhos", function(request, response){
+        
+        var connection = dbConnection();
+
+        eventoBanco.listarTamanhos(connection, function(erro, result){
+          response.send(result);
+          if(erro != null) console.log(erro);
+          
+        });
+
+        connection.end();
+    });
+
     app.get("/consulta", function(request, response){
         var id = request.query.id;
 

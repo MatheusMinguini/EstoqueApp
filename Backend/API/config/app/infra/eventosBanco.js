@@ -9,7 +9,11 @@ module.exports =  function(){
     }
 
     this.listarCores = function(connection, callback){
-        connection.query("SELECT DISTINCT(cor) FROM produto", callback);
+        connection.query("SELECT DISTINCT(cor) as c FROM produto ORDER BY c", callback);
+    }
+
+    this.listarTamanhos = function(connection, callback){
+        connection.query("SELECT DISTINCT(tamanho) as t FROM produto ORDER BY t", callback);
     }
 
     this.consultaPorId = function(connection, id, callback){

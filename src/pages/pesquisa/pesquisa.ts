@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { NavController, LoadingController, AlertController, Alert  } from 'ionic-angular';
 import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
@@ -19,6 +19,7 @@ export class PesquisaPage{
   public produto: Produto;
   produtos: Produto[] = [];
   cores: Array<String>;
+  tamanhos: Array<String>;
   myColor: string = 'search-buttom';
   isRound: boolean = false;
 
@@ -26,21 +27,42 @@ export class PesquisaPage{
 
   constructor( public _http: Http, public navCtrl: NavController,
     public _configuracao: Configuracao,
-    private _loadingCtrl: LoadingController,
-    private _alertCtrl: AlertController){
+    public _loadingCtrl: LoadingController,
+    public _alertCtrl: AlertController){
 
-      this.produto = new Produto();
-      this.buscarCores();
+  }
 
-      this._mensagem = _alertCtrl.create({
-        title : "Aviso",
-        buttons : [
-          { text: "Tentar outra Pesquisa", handler : () => this.navCtrl.push(PesquisaPage)},
-          { text: "Retornar a página Principal", handler: () => this.navCtrl.setRoot(HomePage)}
-        ]
-      })
+  ngOnInit() {
+    this.produto = new Produto();
+    this.buscarCores();
+    this.buscarTamanhos();
 
+    this._mensagem = this._alertCtrl.create({
+      title : "Aviso",
+      buttons : [
+        {
+          text: "Retornar a página Principal", handler: () => {
+            this.navCtrl.setRoot(HomePage);
+            this.produto = new Produto();
+            console.log(this.produto);
+          }
+        }
+      ]
+    })
+  }
 
+  buscarTamanhos(){
+    this._http.get(this._configuracao.getAdressAPI() + '/tamanhos')
+      .map(resp => resp.json())
+        .toPromise().then(elemento => {
+
+        console.log(elemento);
+        let tamanhos = elemento;
+        this.tamanhos = tamanhos.map((el) => el.t);
+
+    }).catch (erro => {
+        console.log(erro);
+    });
   }
 
   buscarCores(){
@@ -49,7 +71,7 @@ export class PesquisaPage{
         .toPromise().then(elemento => {
 
         let cores = elemento;
-        this.cores = cores.map((el) => el.cor);
+        this.cores = cores.map((el) => el.c);
 
     }).catch (erro => {
         console.log(erro);
@@ -68,15 +90,21 @@ export class PesquisaPage{
       .map(resp => resp.json())
         .toPromise().then(elemento => {
         this.produtos = elemento;
-        console.log(this.produtos);
 
         loader.dismiss();
 
         if(this.produtos.length > 0){
           this.navCtrl.push(ResultadoPage, { produtosEncontrados: this.produtos});
         }else{
-           this._mensagem.setSubTitle('Não encontramos nenhum produto com esse filtro');
-           this._mensagem.present();
+           const _mensagem = this._alertCtrl.create({
+              title : "Aviso",
+              buttons : [
+                { text: "Tentar outra Pesquisa"},
+                { text: "Retornar a página Principal", handler: () => this.navCtrl.setRoot(HomePage)}
+              ]
+          })
+           _mensagem.setSubTitle('Não encontramos nenhum produto com esse filtro');
+           _mensagem.present();
         }
 
     }).catch (erro => {

@@ -7,7 +7,7 @@ import { GrupoService } from '../../services/grupo.service';
 import { FormularioCadastroPage } from '../formulario/formulario_final';
 
 @Component({
-    providers : [ GrupoService ],
+    providers : [ GrupoService, Produto ],
     selector : 'formulario',
     templateUrl : 'formulario.html'
 })
@@ -24,7 +24,7 @@ export class FormularioPage{
   isRound: boolean;
 
 
-  constructor( public _grupoService : GrupoService, public parametro : NavParams ,
+  constructor(public _grupoService : GrupoService, public parametro : NavParams ,
       public _navController : NavController,
       public _alert : AlertController){
 

@@ -33,8 +33,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label color="twitterDarkBlue" floating>Tamanho</ion-label>
-      <ion-input name="tamanho" [(ngModel)]="produto.tamanho" clearInput></ion-input>
+      <ion-label color="twitterDarkBlue">Tamanho</ion-label>
+      <ion-select [(ngModel)]="produto.tamanho" multiple="false" [ngModelOptions]="{standalone: true}">
+        <ion-option *ngFor="let tamanho of tamanhos" [value]="tamanho" >{{tamanho}}</ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
@@ -69,9 +71,7 @@
       </ion-card>
 
     <button [color]="myColor" [round]="isRound" ion-button block (click)="pesquisar()">
-
-       <ion-icon ios="ios-search" md="md-search"></ion-icon>BUSCAR
-
+       BUSCA LÁ
     </button>
   </form>
 </ion-content>

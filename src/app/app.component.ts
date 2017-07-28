@@ -11,6 +11,10 @@ import { HomePage } from '../pages/home/home';
 export class MyApp {
   rootPage = HomePage;
 
+  paginas = [
+    {titulo: 'Página Principal', component : HomePage}
+  ]
+
   constructor(platform: Platform) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
