@@ -7,6 +7,7 @@ export class Produto{
   grupo : number;
   genero: string;
   data_cadastro: Date;
+  img: string;
 
   constructor(){
 

@@ -6,8 +6,10 @@ import { Grupo } from '../../models/Grupo';
 import { GrupoService } from '../../services/grupo.service';
 import { FormularioCadastroPage } from '../formulario/formulario_final';
 
+import { CurrencyMaskModule } from "ng2-currency-mask";
+
 @Component({
-    providers : [ GrupoService, Produto ],
+    providers : [ GrupoService, Produto, CurrencyMaskModule ],
     selector : 'formulario',
     templateUrl : 'formulario.html'
 })
@@ -28,17 +30,18 @@ export class FormularioPage{
       public _navController : NavController,
       public _alert : AlertController){
 
-      this.produto = new Produto();
+  }
 
-      this._mensagem = _alert.create({
+  ngOnInit(){
+    this.produto = new Produto();
+
+      this._mensagem = this._alert.create({
           title : 'Aviso',
           buttons : [{text : 'Ok', handler : () => this._navController.setRoot(HomePage)}]
       })
 
       this.myColor = 'search-buttom';
       this.isRound = false;
-
-      //this.grupos = this._grupoService.buscarGrupos();
   }
 
   continuar(){

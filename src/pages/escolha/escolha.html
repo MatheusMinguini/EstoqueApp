@@ -7,7 +7,7 @@
           <menu-icon></menu-icon>
          </ion-buttons>
     </ion-navbar>
-    
+
 </ion-header>
 
 
@@ -39,12 +39,34 @@
 
       </ion-item-divider>
 
-      <br><br>
+    </ion-card-content>
+  </ion-card>
 
-      <button color="search-buttom" id="compartilhar" ion-button outline icon-only>
-        <ion-icon ios="ios-share-alt" md="md-share-alt"></ion-icon>
-      </button>
+  <br>
 
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title color="twitterDarkBlue">
+        <b>COMPARTILHAR</b>
+      </ion-card-title>
+
+      <ion-row>
+        <ion-col>
+          <button ion-fab color="whatsApp" (click)="compartilharWhatsApp()">
+            <ion-icon color="detail" ios="logo-whatsapp" md="logo-whatsapp"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-fab color="facebook" (click)="compartilharFacebook()">
+            <ion-icon color="detail" ios="logo-facebook" md="logo-facebook"></ion-icon>
+          </button>
+        </ion-col>
+         <ion-col>
+          <button ion-fab color="instagram" (click)="compartilharInstagram()">
+            <ion-icon color="detail" name="logo-instagram"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
   </ion-card>
 

@@ -23,7 +23,8 @@
 
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Preço</ion-label>
-        <ion-input type="number" name="preco" [(ngModel)]="produto.preco"></ion-input>
+        <ion-input [(ngModel)]="produto.preco" [ngModelOptions]="{standalone: true}"></ion-input>
+        <!-- <ion-input [(ngModel)]="produto.preco" [ngModelOptions]="{standalone: true}" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" currencyMask></ion-input> -->
       </ion-item>
 
       <ion-item>

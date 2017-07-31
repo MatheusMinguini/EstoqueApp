@@ -31,7 +31,7 @@ export class PesquisaPage{
     public _configuracao: Configuracao,
     public _loadingCtrl: LoadingController,
     public _alertCtrl: AlertController){
-     
+
   }
 
   ngOnInit() {
@@ -89,6 +89,11 @@ export class PesquisaPage{
           content : "Procurando produtos com esse perfil"
     });
 
+    if(this.pesquisarTodos){
+      this.produto = new Produto();
+    }
+
+
     loader.present();
 
     this._http.post(this._configuracao.getAdressAPI() + '/filtrar', this.produto)
@@ -123,8 +128,14 @@ export class PesquisaPage{
   conferirPreenchimento(){
     this.mostrarBotao = this.produto.verificarPreenchimento(this.produto);
   }
-  atualizaTotal(ligado : boolean){
-        ligado ? this.pesquisarTodos = true : this.pesquisarTodos = false;
+
+  buscarTodos(ligado : boolean){
+        if(ligado){
+          this.pesquisarTodos = true;
+
+        }else{
+          this.pesquisarTodos = false;
+        }
     }
 }
 

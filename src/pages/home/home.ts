@@ -9,6 +9,7 @@ import { Configuracao } from '../../services/config.service';
 
 
 
+
 @Component({
   providers : [ Configuracao ],
   selector: 'page-home',
@@ -79,11 +80,31 @@ export class HomePage implements OnInit{
     this.navCtrl.push(PesquisaPage);
   }
 
-  remover(evento){
-    this._http.post(this._configuracao.getAdressAPI() + '/remover', evento)
+  confirmarOperacao(objeto) {
+    let alert = this._alertCtrl.create({
+      title: 'Confirmar Operação',
+      message: 'Você vendeu o produto e deseja excluí-lo?',
+      buttons: [
+        {
+          text: 'Não excluir',
+          role: 'cancel'
+        },
+        {
+          text: 'Excluir',
+          handler: () => {
+            this.remover(objeto);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  remover(produto){
+    this._http.post(this._configuracao.getAdressAPI() + '/remover', produto)
       .map(resp => resp.json())
         .toPromise().then(elemento => {
-           this._mensagem.setSubTitle('Evento removido');
+           this._mensagem.setSubTitle('Produto removido');
            this._mensagem.present();
         }).catch (erro => {
             this._mensagem.setSubTitle('Ocorreu algum problema. Tente mais tarde');

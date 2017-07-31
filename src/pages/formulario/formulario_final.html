@@ -7,13 +7,17 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item class="gallery-button" text-center>
-    <img src="assets/img/semImagem.gif" alt="Evento">
+  <ion-item class="gallery-button" text-center *ngIf="produto.img == null">
+    <img src="assets/img/semImagem.gif" alt="Produto">
     <!--<img [src]="imageSrc"/>-->
   </ion-item>
 
+  <ion-item class="gallery-button" text-center *ngIf="produto.img != null">
+    <img [src]="produto.img"/>
+  </ion-item>
+
   <ion-item text-center>
-    <ion-icon color="detail" name="images" ios="ios-images" md="md-images" on-tap="openGallery()"></ion-icon>
+    <ion-icon color="detail" name="images" ios="ios-images" md="md-images" on-tap="abrirGaleria()"></ion-icon>
     <p color="twitterDarkBlue"><b>Escolha uma Imagem</b></p>
   </ion-item>
 

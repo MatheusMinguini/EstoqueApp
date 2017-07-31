@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController, AlertController, Alert } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { HomePage } from '../home/home';
 import { Produto } from '../../models/Produto';
 import { Configuracao } from '../../services/config.service';
+import { Camera } from 'ionic-native';
 
 @Component({
   providers: [ Configuracao ],
@@ -12,6 +13,7 @@ import { Configuracao } from '../../services/config.service';
 })
 
 export class FormularioCadastroPage {
+
     produto : Produto;
     public _mensagem : Alert;
     myColor: string = 'search-buttom';
@@ -22,15 +24,20 @@ export class FormularioCadastroPage {
       public _http: Http,
       public _alert : AlertController, public _configuracao: Configuracao){
 
-        this._mensagem = _alert.create({
-          title: 'Aviso',
-          buttons : [{text : 'Ok', handler : () => this._navController.setRoot(HomePage)}]
-        })
+
 
     }
 
-    salvar(){
+    ngOnInit() {
       this.produto = this.parametro.get('produtoSalvar');
+
+      this._mensagem = this._alert.create({
+          title: 'Aviso',
+          buttons : [{text : 'Ok', handler : () => this._navController.setRoot(HomePage)}]
+        })
+    }
+
+    salvar(){
 
       this._http.post(this._configuracao.getAdressAPI() + '/salvar', this.produto)
         .toPromise().then(elemento => {
@@ -41,6 +48,20 @@ export class FormularioCadastroPage {
           this._mensagem.present();
           console.log(erro);
       });
+    }
+
+    private abrirGaleria (): void {
+      this.produto.img = 'assets/img/blusa.png';
+      // let cameraOptions = {
+      //   sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      //   destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
+      //   quality: 100,
+      //   targetWidth: 1000,
+      //   targetHeight: 1000,
+      //   encodingType: Camera.EncodingType.JPEG,
+      //   correctOrientation: true
+      // }
+      // Camera.getPicture(cameraOptions).then(photo => this.produto.image = photo, err => console.log(err));
     }
 }
 

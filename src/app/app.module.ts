@@ -1,3 +1,4 @@
+
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -8,8 +9,12 @@ import { PesquisaPage } from '../pages/pesquisa/pesquisa';
 import { ResultadoPage } from '../pages/resultado/resultado';
 import { FormularioCadastroPage } from '../pages/formulario/formulario_final';
 import { MenuComponent } from '../pages/menu/menu.component';
+
+import { CurrencyMaskModule } from "ng2-currency-mask";
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +22,7 @@ import 'rxjs/add/operator/toPromise';
     HomePage, EscolhaPage, FormularioPage, PesquisaPage, ResultadoPage, FormularioCadastroPage, MenuComponent
   ],
   imports: [
+    CurrencyMaskModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -31,7 +37,7 @@ import 'rxjs/add/operator/toPromise';
     MenuComponent
   ],
   providers: [
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]
 })
 export class AppModule {}

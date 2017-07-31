@@ -21,9 +21,12 @@
     "@angular/platform-server": "2.2.1",
     "@ionic/cloud-angular": "^0.12.0",
     "@ionic/storage": "1.1.7",
+    "cordova-plugin-camera": "^2.4.1",
+    "cordova-plugin-compat": "^1.1.0",
     "ionic-angular": "2.0.0",
     "ionic-native": "2.4.1",
     "ionicons": "3.0.0",
+    "ng2-currency-mask": "^2.2.0",
     "rxjs": "5.0.0-beta.12",
     "sw-toolbox": "3.4.0",
     "zone.js": "0.6.26"
@@ -48,5 +51,13 @@
       "locator": "ios"
     }
   ],
-  "description": "Procura estoque"
+  "description": "Procura estoque",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION": " ",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+      }
+    }
+  }
 }

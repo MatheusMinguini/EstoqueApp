@@ -8,12 +8,12 @@
         </ion-buttons>
     </ion-navbar>
 </ion-header>
-  
+
 <ion-content padding>
   <form>
-    <ion-item>                  
-      <ion-label color="twitterDarkBlue">Buscar todos ?</ion-label>
-      <ion-toggle #toggle color="secondary" (ionChange)="atualizaTotal(toggle.checked, item)"></ion-toggle>
+    <ion-item>
+      <ion-label color="twitterDarkBlue"><b>Buscar todos ?</b></ion-label>
+      <ion-toggle #toggle color="secondary" (ionChange)="buscarTodos(toggle.checked)"></ion-toggle>
     </ion-item>
 
     <ion-item *ngIf="!pesquisarTodos">
@@ -40,7 +40,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item *ngIf="!pesquisarTodos"> 
+    <ion-item *ngIf="!pesquisarTodos">
       <ion-label color="twitterDarkBlue">Tamanho</ion-label>
       <ion-select (ngModelChange)="conferirPreenchimento()" [(ngModel)]="produto.tamanho" multiple="false" [ngModelOptions]="{standalone: true}">
         <ion-option *ngFor="let tamanho of tamanhos" [value]="tamanho" >{{tamanho}}</ion-option>
