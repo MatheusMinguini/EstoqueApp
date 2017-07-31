@@ -1,19 +1,22 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { App, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 
 
+// @App({
+//   config: {
+//       backButtonText: 'Voltar',
+//   } 
+// })
+
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
   rootPage = HomePage;
-
-  paginas = [
-    {titulo: 'Página Principal', component : HomePage}
-  ]
 
   constructor(platform: Platform) {
     platform.ready().then(() => {

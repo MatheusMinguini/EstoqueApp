@@ -23,16 +23,21 @@ export class PesquisaPage{
   myColor: string = 'search-buttom';
   isRound: boolean = false;
 
+  pesquisarTodos: boolean
+  mostrarBotao : boolean
 
 
   constructor( public _http: Http, public navCtrl: NavController,
     public _configuracao: Configuracao,
     public _loadingCtrl: LoadingController,
     public _alertCtrl: AlertController){
-
+     
   }
 
   ngOnInit() {
+
+    this.pesquisarTodos = false;
+    this.mostrarBotao = false;
     this.produto = new Produto();
     this.buscarCores();
     this.buscarTamanhos();
@@ -114,6 +119,13 @@ export class PesquisaPage{
         console.log(erro);
     });
   }
+
+  conferirPreenchimento(){
+    this.mostrarBotao = this.produto.verificarPreenchimento(this.produto);
+  }
+  atualizaTotal(ligado : boolean){
+        ligado ? this.pesquisarTodos = true : this.pesquisarTodos = false;
+    }
 }
 
 

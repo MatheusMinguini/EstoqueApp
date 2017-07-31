@@ -12,12 +12,21 @@ export class Produto{
 
   }
 
-  verificarCamposObrigatorios(objeto){
+    verificarCamposObrigatorios(objeto){
         if(!objeto.nome || !objeto.descricao || !objeto.preco || !objeto.cor || !objeto.tamanho
          /* || !objeto.grupo*/ || !objeto.genero){
             return false;
         }else{
             return true;
+        }
+    }
+
+    verificarPreenchimento(objeto){
+        if(objeto.nome || objeto.descricao || objeto.preco || objeto.cor || objeto.tamanho
+         /* || !objeto.grupo*/ || objeto.genero){
+            return true;
+        }else{
+            return false;
         }
     }
 }
