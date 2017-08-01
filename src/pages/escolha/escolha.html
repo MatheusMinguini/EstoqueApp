@@ -30,11 +30,8 @@
         <h5 color="dark-grey"><b>Cor:</b> {{produto.cor}}</h5>
         <h5 color="dark-grey"><b>Tamanho:</b> {{produto.tamanho}}</h5>
         <h5 color="dark-grey"><b>Data Cadastro:</b> {{produto.data_cadastro | date:"dd/MM/yyyy"}}</h5>
-
-        <h5 color="dark-grey"><b>Grupo:</b> {{produto.grupo}}</h5>
-
+        <!-- <h5 color="dark-grey"><b>Grupo:</b> {{grupoDoProduto.nome}}</h5> -->
         <h5 color="dark-grey" *ngIf="produto.genero === 'm'"><b>Público: </b>Masculino</h5>
-
         <h5 color="dark-grey" *ngIf="produto.genero === 'f'"><b>Público: </b>Feminino</h5>
 
       </ion-item-divider>

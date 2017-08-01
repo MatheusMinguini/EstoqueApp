@@ -1,14 +1,15 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController, Alert  } from 'ionic-angular';
 import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
+import { GrupoService } from '../../services/grupo.service';
 import { Http } from '@angular/http';
 import { ResultadoPage } from '../resultado/resultado';
 import { Configuracao } from '../../services/config.service';
 import { HomePage } from '../home/home';
 
 @Component({
-  providers : [ Configuracao ],
+  providers : [ Configuracao, GrupoService ],
   selector: 'pesquisa',
   templateUrl: 'pesquisa.html'
 })
@@ -22,12 +23,13 @@ export class PesquisaPage{
   tamanhos: Array<String>;
   myColor: string = 'search-buttom';
   isRound: boolean = false;
+  grupos: Array<Grupo>;
 
-  pesquisarTodos: boolean
-  mostrarBotao : boolean
+  pesquisarTodos: boolean;
+  mostrarBotao : boolean;
 
 
-  constructor( public _http: Http, public navCtrl: NavController,
+  constructor( public _grupoService : GrupoService, public _http: Http, public navCtrl: NavController,
     public _configuracao: Configuracao,
     public _loadingCtrl: LoadingController,
     public _alertCtrl: AlertController){
@@ -54,6 +56,12 @@ export class PesquisaPage{
         }
       ]
     })
+
+    this._grupoService.buscarGrupos().then(elemento => {
+        this.grupos = elemento;
+      }).catch (erro => {
+          console.log(erro);
+      })
   }
 
   buscarTamanhos(){

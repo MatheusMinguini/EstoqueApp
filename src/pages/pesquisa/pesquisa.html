@@ -53,13 +53,13 @@
     </ion-item>
 
     <br>
-<!--
-       <ion-item>
-        <ion-label color="twitterDarkBlue">Grupo</ion-label>
-        <ion-select [(ngModel)]="produto.grupo" multiple="false" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
-        </ion-select>
-      </ion-item>  -->
+
+    <ion-item *ngIf="!pesquisarTodos">
+      <ion-label color="twitterDarkBlue">Grupo</ion-label>
+      <ion-select [(ngModel)]="produto.grupo_id" multiple="false" [ngModelOptions]="{standalone: true}">
+        <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
+      </ion-select>
+    </ion-item>
 
       <ion-card *ngIf="!pesquisarTodos">
         <ion-card-header  color="twitterDarkBlue">

@@ -4,7 +4,7 @@ export class Produto{
   preco : number;
   cor : String;
   tamanho : String;
-  grupo : number;
+  grupo_id : number;
   genero: string;
   data_cadastro: Date;
   img: string;

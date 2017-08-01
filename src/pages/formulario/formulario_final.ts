@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { Produto } from '../../models/Produto';
 import { Configuracao } from '../../services/config.service';
 import { Camera } from 'ionic-native';
+import { ActionSheetController } from 'ionic-angular';
 
 @Component({
   providers: [ Configuracao ],
@@ -22,7 +23,9 @@ export class FormularioCadastroPage {
     constructor(public parametro : NavParams ,
       public _navController: NavController,
       public _http: Http,
-      public _alert : AlertController, public _configuracao: Configuracao){
+      public _alert : AlertController,
+      public _configuracao: Configuracao,
+      public actionSheetCtrl: ActionSheetController){
 
 
 
@@ -51,17 +54,64 @@ export class FormularioCadastroPage {
     }
 
     private abrirGaleria (): void {
-      this.produto.img = 'assets/img/blusa.png';
-      // let cameraOptions = {
-      //   sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-      //   destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
-      //   quality: 100,
-      //   targetWidth: 1000,
-      //   targetHeight: 1000,
-      //   encodingType: Camera.EncodingType.JPEG,
-      //   correctOrientation: true
-      // }
-      // Camera.getPicture(cameraOptions).then(photo => this.produto.image = photo, err => console.log(err));
+      let configuracao : Object =  this.configuracoesPhoto('');
+      Camera.getPicture(configuracao).then(photo => this.produto.img = photo,
+        err => {
+          this._mensagem.setSubTitle(err);
+          this._mensagem.present();
+        });
     }
+
+
+    private abrirCamera (): void {
+      let configuracao : Object =  this.configuracoesPhoto('camera');
+      Camera.getPicture(configuracao).then(photo => this.produto.img = photo,
+        err => {
+          this._mensagem.setSubTitle(err);
+          this._mensagem.present();
+        });
+    }
+
+    presentActionSheet() {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'Inserir foto para o produto',
+        buttons: [
+          {
+            text: 'Tirar uma foto',
+            role: 'destructive',
+            handler: () => {
+              this.abrirCamera();
+            }
+          },{
+            text: 'Escolher foto da Galeria',
+            handler: () => {
+              this.abrirGaleria ();
+            }
+          },{
+            text: 'Cancelar',
+            role: 'cancel'
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+
+    configuracoesPhoto(param){
+        let fonte;
+       (param == "camera")? fonte = 'Camera.PictureSourceType.PHOTOLIBRARY' : fonte = 'Camera.PictureSourceType.PHOTOLIBRARY';
+
+      let cameraOptions = {
+        sourceType: fonte,
+        destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
+        quality: 100,
+        targetWidth: 1000,
+        targetHeight: 1000,
+        encodingType: Camera.EncodingType.JPEG,
+        correctOrientation: true
+      }
+
+      return cameraOptions;
+    }
+
 }
 

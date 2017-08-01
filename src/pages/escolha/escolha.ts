@@ -1,24 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, AlertController, Alert } from 'ionic-angular';
 import { Produto } from '../../models/Produto';
+import { Grupo } from '../../models/Grupo';
+import { GrupoService } from '../../services/grupo.service';
+import { Configuracao } from '../../services/config.service';
 
 /*import { SocialSharing } from '@ionic-native/social-sharing';*/
 
 @Component({
-    selector : 'escolha',
-    templateUrl : 'escolha.html'
+  providers : [ Configuracao, GrupoService ],
+  selector : 'escolha',
+  templateUrl : 'escolha.html'
 })
 
 export class EscolhaPage{
 
     mensagem: Alert;
 
-    textoSocial: string;
     image: string;
+
+    grupoDoProduto: Grupo;
+
+    grupos : Array<Grupo>;
 
     public produto : Produto;
 
-    constructor(public parametro : NavParams, public _alert: AlertController/*, private socialSharing: SocialSharing*/){
+    constructor(public _grupoService : GrupoService, public parametro : NavParams, public _alert: AlertController/*, private socialSharing: SocialSharing*/){
+
+    }
+
+    ngOnInit(){
+      this.produto = this.parametro.get('produtoSelecionado');
+
+      /*this.grupoDoProduto = this._grupoService.buscarGrupos().then(elemento => {
+        return elemento.find((objPromise) => objPromise.id == this.produto.grupo_id);
+      }).catch (erro => console.log("Erro: " + erro));*/
+
+    }
+
+    compartilharWhatsApp(){
+
+    }
+
+    compartilharFacebook(){
+
+    }
+
+    compartilharInstagram(){
 
     }
 
@@ -32,35 +60,5 @@ export class EscolhaPage{
       })
 
       return msg;
-    }
-
-    ngOnInit(){
-      this.produto = this.parametro.get('produtoSelecionado');
-      this.textoSocial = `Dados do Produto: Nome: ${this.produto.nome}`;
-    }
-
-    compartilharWhatsApp(){
-      // this.socialSharing.canShareVia('whatssapp').then(() => {
-      //     this.socialSharing.shareViaWhatsApp(this.message, this.image).then(() => {
-
-              this.mensagem = this.criarMensagem("Aviso", "Dados compartilhados");
-              this.mensagem.present();
-
-      //     }).catch(() => {
-      //       this.mensagem = this.criarMensagem("Aviso", "Ocorreu algum problema, tente em instantes");
-      //       this.mensagem.present();
-      //     })
-      // }).catch(() => {
-      //    this.mensagem = this.criarMensagem("Aviso", "Não é possível compartilhar com o WhatsApp");
-      //    this.mensagem.present();
-      // });
-    }
-
-    compartilharFacebook(){
-
-    }
-
-    compartilharInstagram(){
-
     }
 }

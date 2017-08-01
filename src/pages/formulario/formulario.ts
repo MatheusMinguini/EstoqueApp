@@ -5,11 +5,12 @@ import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
 import { GrupoService } from '../../services/grupo.service';
 import { FormularioCadastroPage } from '../formulario/formulario_final';
+import { Configuracao } from '../../services/config.service';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 
 @Component({
-    providers : [ GrupoService, Produto, CurrencyMaskModule ],
+    providers : [ GrupoService, Produto, CurrencyMaskModule, Grupo, Configuracao],
     selector : 'formulario',
     templateUrl : 'formulario.html'
 })
@@ -42,6 +43,12 @@ export class FormularioPage{
 
       this.myColor = 'search-buttom';
       this.isRound = false;
+
+      this._grupoService.buscarGrupos().then(elemento => {
+        this.grupos = elemento;
+      }).catch (erro => {
+          console.log(erro);
+      })
   }
 
   continuar(){
