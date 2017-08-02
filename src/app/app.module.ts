@@ -11,6 +11,7 @@ import { FormularioCadastroPage } from '../pages/formulario/formulario_final';
 import { MenuComponent } from '../pages/menu/menu.component';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { Camera } from 'ionic-native';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -38,6 +39,7 @@ import 'rxjs/add/operator/toPromise';
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    Camera
   ]
 })
 export class AppModule {}

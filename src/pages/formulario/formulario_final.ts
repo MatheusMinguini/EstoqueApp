@@ -54,8 +54,17 @@ export class FormularioCadastroPage {
     }
 
     private abrirGaleria (): void {
+       let cameraOptions = {
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
+        quality: 100,
+        targetWidth: 1000,
+        targetHeight: 1000,
+        encodingType: Camera.EncodingType.JPEG,
+        correctOrientation: true
+      }
       let configuracao : Object =  this.configuracoesPhoto('');
-      Camera.getPicture(configuracao).then(photo => this.produto.img = photo,
+      Camera.getPicture(cameraOptions).then(photo => this.produto.img = photo,
         err => {
           this._mensagem.setSubTitle(err);
           this._mensagem.present();
@@ -64,8 +73,16 @@ export class FormularioCadastroPage {
 
 
     private abrirCamera (): void {
-      let configuracao : Object =  this.configuracoesPhoto('camera');
-      Camera.getPicture(configuracao).then(photo => this.produto.img = photo,
+      let cameraOptions = {
+        sourceType: Camera.PictureSourceType.CAMERA,
+        destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
+        quality: 100,
+        targetWidth: 1000,
+        targetHeight: 1000,
+        encodingType: Camera.EncodingType.JPEG,
+        correctOrientation: true
+      }
+      Camera.getPicture(cameraOptions).then(photo => this.produto.img = photo,
         err => {
           this._mensagem.setSubTitle(err);
           this._mensagem.present();
