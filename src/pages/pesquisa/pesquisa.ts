@@ -26,6 +26,7 @@ export class PesquisaPage{
   grupos: Array<Grupo>;
 
   pesquisarTodos: boolean;
+  pesquisarCodigoBarras: boolean;
   mostrarBotao : boolean;
 
 
@@ -40,6 +41,7 @@ export class PesquisaPage{
 
     this.pesquisarTodos = false;
     this.mostrarBotao = false;
+    this.pesquisarCodigoBarras=  false;
     this.produto = new Produto();
     this.buscarCores();
     this.buscarTamanhos();
@@ -138,13 +140,23 @@ export class PesquisaPage{
   }
 
   buscarTodos(ligado : boolean){
-        if(ligado){
-          this.pesquisarTodos = true;
+    if(ligado){
+      this.pesquisarTodos = true;
 
-        }else{
-          this.pesquisarTodos = false;
-        }
+    }else{
+      this.pesquisarTodos = false;
     }
+  }
+
+  buscarCodigoBarras(ligado : boolean){
+    if(ligado){
+      this.pesquisarCodigoBarras = true;
+
+    }else{
+      this.pesquisarCodigoBarras = false;
+    }
+  }
+
 }
 
 

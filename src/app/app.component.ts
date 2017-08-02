@@ -1,18 +1,11 @@
 import { Component } from '@angular/core';
-import { App, Platform } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-
 import { HomePage } from '../pages/home/home';
 
-
-// @App({
-//   config: {
-//       backButtonText: 'Voltar',
-//   } 
-// })
-
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: `app.html`
+
 })
 
 export class MyApp {

@@ -33,7 +33,6 @@ export class FormularioCadastroPage {
 
     ngOnInit() {
       this.produto = this.parametro.get('produtoSalvar');
-
       this._mensagem = this._alert.create({
           title: 'Aviso',
           buttons : [{text : 'Ok', handler : () => this._navController.setRoot(HomePage)}]
