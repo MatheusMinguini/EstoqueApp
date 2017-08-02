@@ -26,7 +26,7 @@ module.exports =  function(){
         let data_banco = data_atual.toISOString().substring(0, 10);
 
         var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, grupo_id, genero) VALUES
-         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_atual}', ${objeto.grupo}, '${objeto.genero}')`;
+         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, '${objeto.cor}', '${objeto.tamanho}', '${data_banco}', ${objeto.grupo_id}, '${objeto.genero}')`;
 
         console.log(sql);
 

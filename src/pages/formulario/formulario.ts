@@ -5,6 +5,7 @@ import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
 import { GrupoService } from '../../services/grupo.service';
 import { FormularioCadastroPage } from '../formulario/formulario_final';
+import { BarCodeForm } from '../formulario/formulario_barCode';
 import { Configuracao } from '../../services/config.service';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
@@ -53,7 +54,7 @@ export class FormularioPage{
 
   continuar(){
     if(this.produto.verificarCamposObrigatorios(this.produto)){
-      this._navController.push(FormularioCadastroPage,  { produtoSalvar: this.produto});
+      this._navController.push(BarCodeForm,  { produtoSalvar: this.produto});
     }else{
         this._alert.create({
             title : 'Campos obrigatórios',
