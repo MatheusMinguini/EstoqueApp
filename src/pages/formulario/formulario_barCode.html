@@ -12,14 +12,15 @@
 <ion-content>
   <ion-item text-center>
     <ion-icon name="barCode" color="detail" ios="ios-barcode" md="md-barcode" on-tap="lerCodigoBarras()"></ion-icon>
-    <p color="twitterDarkBlue"><b>Ler Cód. Barras</b></p>
+    <p color="twitterDarkBlue"><b>Ler Código de Barras</b></p>
   </ion-item>
 
   <br><br>
 
-  <ion-item text-center>
+  <ion-item text-center *ngIf="produto.codigo_barra != null">
     <h3 color="twitterDarkBlue"><b>INFORMAÇÕES DO CÓDIGO</b></h3>
-    <h5 color="dark-grey"><b>Código:</b> 1231231231</h5>
+    <h5 color="dark-grey"><b>Código:</b> {{result.text}}</h5>
+    <h5 color="dark-grey"><b>Formato:</b> {{result.format}}</h5>
   </ion-item>
 
   <br>

@@ -1,7 +1,9 @@
+
 import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController, AlertController, Alert } from 'ionic-angular';
 import { Produto } from '../../models/Produto';
 import { FormularioCadastroPage } from '../formulario/formulario_final';
+import { BarcodeScanner, BarcodeScannerOptions  } from '@ionic-native/barcode-scanner';
 
 
 @Component({
@@ -10,12 +12,16 @@ import { FormularioCadastroPage } from '../formulario/formulario_final';
 
 export class BarCodeForm implements OnInit{
 
+  configuracao: BarcodeScannerOptions; 
   myColor: string;
   isRound: boolean;
   textoBotao : string;
   produto : Produto;
+  result : Object;
 
-  constructor(public _parametro : NavParams, public _navController : NavController){
+  constructor(private barcodeScanner: BarcodeScanner, 
+    public _parametro : NavParams, 
+    public _navController : NavController){
 
   }
 
@@ -25,9 +31,22 @@ export class BarCodeForm implements OnInit{
     this.myColor = 'search-buttom';
     this.isRound = false;
     this.textoBotao = 'Pular etapa e continuar';
+    console.log(this.produto.codigo_barra);
   }
 
-   continuar(){
+  continuar(){
     this._navController.push(FormularioCadastroPage,  { produtoSalvar: this.produto});
   }
+
+  lerCodigoBarras(){
+    alert("test");
+    this.barcodeScanner.scan().then((barcodeData) => {
+      this.result = barcodeData;
+      this.textoBotao = 'Prosseguir';
+      //this.produto.codigo_barra = this.result.text;
+    }, (err) => {
+      
+    });
+  }
+
 }
