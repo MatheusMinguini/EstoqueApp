@@ -15,34 +15,34 @@
         <h5 color="twitterDarkBlue"><b>Opções de Pesquisa</b></h5>
     </ion-list-header>
 
-    <ion-item>
+    <ion-item *ngIf="!pesquisarCodigoBarras">
       <ion-label color="twitterDarkBlue">
         <ion-icon ios="ios-albums" md="md-albums" item-start></ion-icon>
         Buscar todos ?
       </ion-label>
-      <ion-toggle #toggle color="secondary" (ionChange)="buscarTodos(toggle.checked)"></ion-toggle>
+      <ion-toggle #toggleTodos color="secondary" (ionChange)="buscarTodos(toggleTodos.checked)"></ion-toggle>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="!pesquisarTodos">
       <ion-label color="twitterDarkBlue">
         <ion-icon ios="ios-pricetags" md="md-pricetags" item-start></ion-icon>
         Código de Barras ?
       </ion-label>
-      <ion-toggle #toggle color="secondary" (ionChange)="buscarCodigoBarras(toggle.checked)"></ion-toggle>
+      <ion-toggle #toggleCod color="secondary" (ionChange)="buscarCodigoBarras(toggleCod.checked)"></ion-toggle>
     </ion-item>
   </ion-list>
 
-  <ion-list>
-
-    <ion-item text-center *ngIf="pesquisarCodigoBarras">
+  <ion-item text-center *ngIf="pesquisarCodigoBarras">
       <ion-icon name="barCode" color="detail" ios="ios-barcode" md="md-barcode" on-tap="lerCodigoBarras()"></ion-icon>
-      <p color="twitterDarkBlue"><b>Ler Cód. Barras</b></p>
-    </ion-item>
+      <p color="twitterDarkBlue"><b>Ler Código de Barras</b></p>
+  </ion-item>
 
+  <ion-list class="filtros" *ngIf="!pesquisarTodos && !pesquisarCodigoBarras">
     <ion-list-header color="blueLight">
         <h5 color="twitterDarkBlue"><b>Filtros</b></h5>
     </ion-list-header>
-    <form *ngIf="!pesquisarTodos">
+
+    <form>
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Nome</ion-label>
         <ion-input name="nome" (ngModelChange)="conferirPreenchimento()" [(ngModel)]="produto.nome" maxlength="20" clearInput></ion-input>
@@ -107,7 +107,7 @@
     </form>
   </ion-list>
 
-  <button *ngIf="pesquisarTodos || mostrarBotao" [color]="myColor" [round]="isRound" ion-button block (click)="pesquisar()">
+  <button *ngIf="mostrarBotao" [color]="myColor" [round]="isRound" ion-button block (click)="pesquisar()">
         BUSCA LÁ
   </button>
 

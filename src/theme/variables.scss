@@ -74,6 +74,10 @@ ion-icon[name=barCode] {
 ion-header ion-icon.back-button-icon.icon {
     color: map-get($colors, detail);
 }
+
+.filtros{
+  border-right: solid 2px map-get($colors, cinza);
+}
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

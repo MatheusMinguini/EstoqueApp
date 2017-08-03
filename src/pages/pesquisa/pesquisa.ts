@@ -142,21 +142,22 @@ export class PesquisaPage{
   buscarTodos(ligado : boolean){
     if(ligado){
       this.pesquisarTodos = true;
-
+      this.mostrarBotao = true;
     }else{
       this.pesquisarTodos = false;
+      this.mostrarBotao = false;
     }
   }
 
   buscarCodigoBarras(ligado : boolean){
     if(ligado){
       this.pesquisarCodigoBarras = true;
-
+      this.mostrarBotao = true;
     }else{
       this.pesquisarCodigoBarras = false;
+      this.mostrarBotao = false;
     }
   }
-
 }
 
 
