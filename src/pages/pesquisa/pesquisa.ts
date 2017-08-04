@@ -7,6 +7,7 @@ import { Http } from '@angular/http';
 import { ResultadoPage } from '../resultado/resultado';
 import { Configuracao } from '../../services/config.service';
 import { HomePage } from '../home/home';
+import { BarcodeScanner, BarcodeScannerOptions  } from '@ionic-native/barcode-scanner';
 
 @Component({
   providers : [ Configuracao, GrupoService ],
@@ -24,13 +25,14 @@ export class PesquisaPage{
   myColor: string = 'search-buttom';
   isRound: boolean = false;
   grupos: Array<Grupo>;
+  result : any;
 
   pesquisarTodos: boolean;
   pesquisarCodigoBarras: boolean;
   mostrarBotao : boolean;
 
 
-  constructor( public _grupoService : GrupoService, public _http: Http, public navCtrl: NavController,
+  constructor(private barcodeScanner: BarcodeScanner,  public _grupoService : GrupoService, public _http: Http, public navCtrl: NavController,
     public _configuracao: Configuracao,
     public _loadingCtrl: LoadingController,
     public _alertCtrl: AlertController){
@@ -154,9 +156,23 @@ export class PesquisaPage{
       this.pesquisarCodigoBarras = true;
       this.mostrarBotao = true;
     }else{
+      this.produto.codigo_barra = null;
       this.pesquisarCodigoBarras = false;
       this.mostrarBotao = false;
     }
+  }
+
+  lerCodigoBarras(){
+    this.barcodeScanner.scan().then((barcodeData) => {
+      this.result = barcodeData;
+      this.produto.codigo_barra = this.result.text;
+    }, (err) => {
+      this._alertCtrl.create({
+        title: 'Aviso',
+        buttons: [{text: 'Entendi'}],
+        subTitle: 'Ocorreu algum problema ao ler o Código de barras'
+      }).present();
+    });
   }
 }
 

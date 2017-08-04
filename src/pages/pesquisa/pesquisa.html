@@ -37,6 +37,12 @@
       <p color="twitterDarkBlue"><b>Ler Código de Barras</b></p>
   </ion-item>
 
+  <ion-item text-center *ngIf="produto.codigo_barra != null">
+    <h3 color="twitterDarkBlue"><b>INFORMAÇÕES DO CÓDIGO</b></h3>
+    <h5 color="dark-grey"><b>Código:</b> {{result.text}}</h5>
+    <h5 color="dark-grey"><b>Formato:</b> {{result.format}}</h5>
+  </ion-item>
+
   <ion-list class="filtros" *ngIf="!pesquisarTodos && !pesquisarCodigoBarras">
     <ion-list-header color="blueLight">
         <h5 color="twitterDarkBlue"><b>Filtros</b></h5>

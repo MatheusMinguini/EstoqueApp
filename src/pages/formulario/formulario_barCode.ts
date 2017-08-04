@@ -17,11 +17,12 @@ export class BarCodeForm implements OnInit{
   isRound: boolean;
   textoBotao : string;
   produto : Produto;
-  result : Object;
+  result : any;
 
   constructor(private barcodeScanner: BarcodeScanner, 
     public _parametro : NavParams, 
-    public _navController : NavController){
+    public _navController : NavController,
+    public _AlertController: AlertController ){
 
   }
 
@@ -31,7 +32,6 @@ export class BarCodeForm implements OnInit{
     this.myColor = 'search-buttom';
     this.isRound = false;
     this.textoBotao = 'Pular etapa e continuar';
-    console.log(this.produto.codigo_barra);
   }
 
   continuar(){
@@ -39,13 +39,16 @@ export class BarCodeForm implements OnInit{
   }
 
   lerCodigoBarras(){
-    alert("test");
     this.barcodeScanner.scan().then((barcodeData) => {
       this.result = barcodeData;
       this.textoBotao = 'Prosseguir';
-      //this.produto.codigo_barra = this.result.text;
+      this.produto.codigo_barra = this.result.text;
     }, (err) => {
-      
+      this._AlertController.create({
+        title: 'Aviso',
+        buttons: [{text: 'Entendi'}],
+        subTitle: 'Ocorreu algum problema ao ler o Código de barras'
+      }).present();
     });
   }
 
