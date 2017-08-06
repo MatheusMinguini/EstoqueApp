@@ -75,6 +75,7 @@ export class FormularioCadastroPage {
       let cameraOptions = {
         sourceType: Camera.PictureSourceType.CAMERA,
         destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
+        saveToPhotoAlbum: true,
         quality: 100,
         targetWidth: 1000,
         targetHeight: 1000,

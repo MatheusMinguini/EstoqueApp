@@ -13,7 +13,9 @@
 
 <ion-content>
   <ion-card>
-    <img src="assets/img/blusa.png"/>
+    
+    <img [src]="produto.img" alt="Evento">
+          
     <ion-card-content>
       <ion-card-title color="twitterDarkBlue">
         <b>{{produto.nome | uppercase}}</b>

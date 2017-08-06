@@ -9,17 +9,9 @@
 <ion-content padding>
 
   <div *ngIf="produtos.length == 0">
-    <div class="card-background-page">
-      <ion-card>
-        <img src="assets/img/eventos.png"/>
+    
+    <img src="assets/img/logo.png"/>
 
-        <div class="card-title">Cadastre Produtos!</div>
-
-        <ion-card-content>
-          <p>Iremos procurá-los para você</p>
-        </ion-card-content>
-      </ion-card>
-    </div>
   </div>
 
   <div *ngIf="produtos.length > 0">
@@ -28,11 +20,11 @@
         <ion-item (click)="seleciona(produto)">
 
           <ion-avatar *ngIf="produto.img == null" item-left>
-            <img src="assets/img/semImagem.gif" alt="Evento">
+            <img src="assets/img/semImagem.gif">
           </ion-avatar>
 
           <ion-avatar *ngIf="produto.img != null" item-left>
-            <img src="assets/img/blusa.png" alt="Evento">
+            <img [src]="produto.img">
           </ion-avatar>
 
           <h2 color="twitterDarkBlue">{{produto.nome}}</h2>

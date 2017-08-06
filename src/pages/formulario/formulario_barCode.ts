@@ -42,7 +42,7 @@ export class BarCodeForm implements OnInit{
     this.barcodeScanner.scan().then((barcodeData) => {
       this.result = barcodeData;
       this.textoBotao = 'Prosseguir';
-      this.produto.codigo_barra = this.result.text;
+      this.produto.codigo_barras = this.result.text;
     }, (err) => {
       this._AlertController.create({
         title: 'Aviso',

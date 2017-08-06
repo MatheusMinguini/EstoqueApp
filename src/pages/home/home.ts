@@ -33,6 +33,8 @@ export class HomePage implements OnInit{
   }
 
   ngOnInit() {
+
+    console.log(this._configuracao.getAdressAPI() + '/produtos');
     let self = this;
 
       const loader = this._loadingCtrl.create(

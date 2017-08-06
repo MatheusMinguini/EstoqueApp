@@ -1,5 +1,5 @@
 export class Produto{
-  codigo_barra: String;
+  codigo_barras: String;
   nome : String;
   descricao: String;
   preco : number;

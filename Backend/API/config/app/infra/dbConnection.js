@@ -3,10 +3,10 @@ var mysql = require('mysql');
 module.exports = function connection(){
     
     var connection = mysql.createConnection({
-            host : '127.0.0.1',
-            user : 'root',
-            password : '',
-            database : 'procura_estoque'
+            host : 'mysql.procurala.kinghost.net',
+            user : 'procurala',
+            password : 'Node123',
+            database : 'procurala'
     });
 
     return connection;

@@ -31,6 +31,9 @@ export class EscolhaPage{
 
     ngOnInit(){
       this.produto = this.parametro.get('produtoSelecionado');
+      if(this.produto.img == null){
+        this.produto.img = "../../assets/img/semImagem.gif";
+      }
 
       /*this.grupoDoProduto = this._grupoService.buscarGrupos().then(elemento => {
         return elemento.find((objPromise) => objPromise.id == this.produto.grupo_id);

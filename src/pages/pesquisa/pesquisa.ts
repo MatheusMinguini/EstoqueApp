@@ -156,7 +156,7 @@ export class PesquisaPage{
       this.pesquisarCodigoBarras = true;
       this.mostrarBotao = true;
     }else{
-      this.produto.codigo_barra = null;
+      this.produto.codigo_barras = null;
       this.pesquisarCodigoBarras = false;
       this.mostrarBotao = false;
     }
@@ -165,7 +165,7 @@ export class PesquisaPage{
   lerCodigoBarras(){
     this.barcodeScanner.scan().then((barcodeData) => {
       this.result = barcodeData;
-      this.produto.codigo_barra = this.result.text;
+      this.produto.codigo_barras = this.result.text;
     }, (err) => {
       this._alertCtrl.create({
         title: 'Aviso',
