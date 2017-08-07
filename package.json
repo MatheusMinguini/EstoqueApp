@@ -1,5 +1,5 @@
 {
-    "name": "procura-estoque",
+    "name": "procura-la",
     "author": "Matheus Simões Minguini",
     "homepage": "",
     "private": true,
@@ -62,7 +62,7 @@
             "locator": "ios"
         }
     ],
-    "description": "Procura estoque",
+    "description": "Procura lá",
     "cordova": {
         "plugins": {
             "cordova-plugin-camera": {

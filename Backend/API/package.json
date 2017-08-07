@@ -1,7 +1,7 @@
 {
-  "name": "timmer",
+  "name": "procura-la",
   "version": "1.0.0",
-  "description": "API para o Timmer",
+  "description": "API app procura-la",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.17.2",
