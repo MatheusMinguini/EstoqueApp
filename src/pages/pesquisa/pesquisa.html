@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-list-header >
+    <ion-list-header text-center>
         <h5 color="twitterDarkBlue"><b>Opções de Pesquisa</b></h5>
     </ion-list-header>
 
@@ -32,12 +32,12 @@
     </ion-item>
   </ion-list>
 
-  <ion-item text-center *ngIf="pesquisarCodigoBarras">
+  <ion-item *ngIf="pesquisarCodigoBarras" text-center>
       <ion-icon name="barCode" color="detail" ios="ios-barcode" md="md-barcode" on-tap="lerCodigoBarras()"></ion-icon>
       <p color="twitterDarkBlue"><b>Ler Código de Barras</b></p>
   </ion-item>
 
-  <ion-item text-center *ngIf="produto.codigo_barras != null">
+  <ion-item *ngIf="produto.codigo_barras != null" text-center>
     <h3 color="twitterDarkBlue"><b>INFORMAÇÕES DO CÓDIGO</b></h3>
     <h5 color="dark-grey"><b>Código:</b> {{result.text}}</h5>
     <h5 color="dark-grey"><b>Formato:</b> {{result.format}}</h5>
@@ -45,44 +45,52 @@
 
   <ion-list class="filtros" *ngIf="!pesquisarTodos && !pesquisarCodigoBarras">
     <ion-list-header color="blueLight">
-        <h5 color="twitterDarkBlue"><b>Filtros</b></h5>
+      <ion-row>
+        <ion-col text-center>
+          <h5 color="twitterDarkBlue"><b>Filtros</b></h5>
+        </ion-col>
+        <ion-col text-right>
+          <ion-icon on-tap="limparFiltros()" color="search-buttom" ios="ios-close-circle" md="md-close-circle">
+          </ion-icon>
+        </ion-col>
+      </ion-row>
     </ion-list-header>
 
     <form>
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Nome</ion-label>
-        <ion-input name="nome" (ngModelChange)="conferirPreenchimento()" [(ngModel)]="produto.nome" maxlength="20" clearInput></ion-input>
+        <ion-input name="nome" [(ngModel)]="produto.nome" maxlength="20" clearInput></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Descrição</ion-label>
-        <ion-input name="descricao" (ngModelChange)="conferirPreenchimento()" [(ngModel)]="produto.descricao" maxlength="50" clearInput></ion-input>
+        <ion-input name="descricao" [(ngModel)]="produto.descricao" maxlength="50" clearInput></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Preço</ion-label>
-        <ion-input type="number" name="preco" (ngModelChange)="conferirPreenchimento()"  [(ngModel)]="produto.preco"></ion-input>
+        <ion-input type="number" name="preco" [(ngModel)]="produto.preco"></ion-input>
       </ion-item>
 
       <br>
 
       <ion-item>
         <ion-label color="twitterDarkBlue"> Cor </ion-label>
-        <ion-select (ngModelChange)="conferirPreenchimento()" [(ngModel)]="produto.cor" multiple="false" [ngModelOptions]="{standalone: true}">
+        <ion-select [(ngModel)]="produto.cor" multiple="false" [ngModelOptions]="{standalone: true}">
           <ion-option *ngFor="let cor of cores" [value]="cor" >{{cor}}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label color="twitterDarkBlue">Tamanho</ion-label>
-        <ion-select (ngModelChange)="conferirPreenchimento()" [(ngModel)]="produto.tamanho" multiple="false" [ngModelOptions]="{standalone: true}">
+        <ion-select [(ngModel)]="produto.tamanho" multiple="false" [ngModelOptions]="{standalone: true}">
           <ion-option *ngFor="let tamanho of tamanhos" [value]="tamanho" >{{tamanho}}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label  color="twitterDarkBlue" floating>Data do Cadastro</ion-label>
-        <ion-datetime  name="data_evento" (ngModelChange)="conferirPreenchimento()" [(ngModel)]="produto.data_cadastro" displayFormat="DD/MM/YY"></ion-datetime>
+        <ion-datetime  name="data_cadastro" [(ngModel)]="produto.data_cadastro" displayFormat="DD/MM/YY"></ion-datetime>
       </ion-item>
 
       <br>
@@ -99,7 +107,7 @@
             <b>Público</b>
           </ion-card-header>
 
-          <ion-list radio-group (ngModelChange)="conferirPreenchimento()" [(ngModel)]="produto.genero" [ngModelOptions]="{standalone: true}">
+          <ion-list radio-group [(ngModel)]="produto.genero" [ngModelOptions]="{standalone: true}">
             <ion-item>
               <ion-label color="twitterDarkBlue">Masculino</ion-label>
               <ion-radio value="m" checked></ion-radio>
@@ -113,14 +121,8 @@
     </form>
   </ion-list>
 
-  <button color="cinza" ion-button block (click)="limparFiltros()">
-        LIMPAR FILTROS
-  </button>
-
-  <br>
   <button *ngIf="mostrarBotao" [color]="myColor" [round]="isRound" ion-button block (click)="pesquisar()">
         BUSCA LÁ
   </button>
-
 </ion-content>
 

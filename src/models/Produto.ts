@@ -14,21 +14,22 @@ export class Produto{
 
   }
 
-    verificarCamposObrigatorios(objeto){
-        if(!objeto.nome || !objeto.descricao || !objeto.preco || !objeto.cor || !objeto.tamanho
-         /* || !objeto.grupo*/ || !objeto.genero){
-            return false;
-        }else{
-            return true;
-        }
+  verificarCamposObrigatorios(objeto){
+    if(!objeto.nome || !objeto.descricao || !objeto.preco || !objeto.cor || !objeto.tamanho
+      || !objeto.grupo_id || !objeto.genero){
+        return false;
+    }else{
+        return true;
     }
+  }
 
-    verificarPreenchimento(objeto){
-        if(objeto.nome || objeto.descricao || objeto.preco || objeto.cor || objeto.tamanho
-         /* || !objeto.grupo*/ || objeto.genero){
-            return true;
-        }else{
-            return false;
-        }
+  verificarFiltros(objeto){
+    if(!objeto.nome && !objeto.descricao && !objeto.preco && !objeto.cor && !objeto.tamanho
+      && !objeto.grupo_id && !objeto.genero && !objeto.data_cadastro){
+        return false;
+    }else{
+        return true;
     }
+  }
+
 }

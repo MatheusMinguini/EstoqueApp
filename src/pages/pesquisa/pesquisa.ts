@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, AlertController, Alert  } from 'ionic-angular';
 import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
@@ -15,7 +15,7 @@ import { BarcodeScanner, BarcodeScannerOptions  } from '@ionic-native/barcode-sc
   templateUrl: 'pesquisa.html'
 })
 
-export class PesquisaPage{
+export class PesquisaPage implements OnInit{
 
   public _mensagem: Alert;
   public produto: Produto;
@@ -42,8 +42,8 @@ export class PesquisaPage{
   ngOnInit() {
 
     this.pesquisarTodos = false;
-    this.mostrarBotao = false;
     this.pesquisarCodigoBarras=  false;
+    this.mostrarBotao = true;
     this.produto = new Produto();
     this.buscarCores();
     this.buscarTamanhos();
@@ -97,14 +97,26 @@ export class PesquisaPage{
 
   pesquisar(){
 
-    const loader = this._loadingCtrl.create({
-          content : "Procurando produtos com esse perfil"
-    });
-
     if(this.pesquisarTodos){
       this.produto = new Produto();
     }
 
+    if(!this.pesquisarTodos && !this.pesquisarCodigoBarras && !this.produto.verificarFiltros(this.produto) ){
+      this._alertCtrl.create({
+        title: 'Filtro vazio',
+        buttons: [{text: 'Entendi'}],
+        subTitle: 'Para podermos melhorar a pesquisa, nos ajude preenchendo alguma informação do produto'
+      }).present();
+    }else{
+      this.filtrar();
+    }
+
+  }
+
+  filtrar(){
+    const loader = this._loadingCtrl.create({
+          content : "Procurando produtos com esse perfil"
+    });
 
     loader.present();
 
@@ -135,35 +147,31 @@ export class PesquisaPage{
         this._mensagem.present();
         console.log(erro);
     });
-  }
 
-  conferirPreenchimento(){
-    this.mostrarBotao = this.produto.verificarPreenchimento(this.produto);
   }
 
   buscarTodos(ligado : boolean){
     if(ligado){
       this.pesquisarTodos = true;
-      this.mostrarBotao = true;
     }else{
       this.pesquisarTodos = false;
-      this.mostrarBotao = false;
     }
   }
 
   buscarCodigoBarras(ligado : boolean){
     if(ligado){
       this.pesquisarCodigoBarras = true;
-      this.mostrarBotao = true;
+      this.mostrarBotao = false;
     }else{
       this.produto.codigo_barras = null;
       this.pesquisarCodigoBarras = false;
-      this.mostrarBotao = false;
+      this.mostrarBotao = true;
     }
   }
 
   lerCodigoBarras(){
-    this.barcodeScanner.scan().then((barcodeData) => {
+    this.mostrarBotao =  true;
+    /*this.barcodeScanner.scan().then((barcodeData) => {
       this.result = barcodeData;
       this.produto.codigo_barras = this.result.text;
     }, (err) => {
@@ -172,7 +180,11 @@ export class PesquisaPage{
         buttons: [{text: 'Entendi'}],
         subTitle: 'Ocorreu algum problema ao ler o Código de barras'
       }).present();
-    });
+    });*/
+  }
+
+  limparFiltros(){
+    this.produto = new Produto();
   }
 }
 
