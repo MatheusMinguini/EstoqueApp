@@ -1,7 +1,7 @@
 module.exports =  function(){
 
     this.listar = function(connection, callback){
-        connection.query("SELECT * FROM produto ORDER BY data_cadastro", callback);
+        connection.query("SELECT * FROM produto ORDER BY data_cadastro LIMIT 30", callback);
     }
 
     this.listarGrupos = function(connection, callback){
@@ -22,18 +22,36 @@ module.exports =  function(){
 
     this.salvar = function(connection, objeto, callback){
 
+        let sql = this.montarSQLparaInserir(objeto);
+        
+        connection.query(sql, callback);
+    }
+
+    this.montarSQLparaInserir =  function(objeto){
+
         const data_atual = new Date();
         let data_banco = data_atual.toISOString().substring(0, 10);
 
-        var sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, grupo_id, genero, codigo_barras, img)
-         VALUES
-         ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, 
+        let sql = `INSERT INTO produto (nome, descricao, preco, cor, tamanho, data_cadastro, grupo_id, genero`;
+
+        if(objeto.codigo_barras != undefined) sql = sql + `, codigo_barras`;
+
+        if(objeto.img != undefined) sql = sql + `, img`;
+
+        sql = sql + `)`;
+
+        sql = sql + ` VALUES
+          ('${objeto.nome}', '${objeto.descricao}', ${objeto.preco}, 
           '${objeto.cor}', '${objeto.tamanho}', '${data_banco}',
-           ${objeto.grupo_id}, '${objeto.genero}', '${objeto.codigo_barras}', '${objeto.img}')`;
+           ${objeto.grupo_id}, '${objeto.genero}'`;
 
-        console.log(sql);
+        if(objeto.codigo_barras != undefined) sql = sql + `, '${objeto.codigo_barras}'`;
 
-        connection.query(sql, callback);
+        if(objeto.img != undefined) sql = sql + `, '${objeto.img}'`;
+
+        sql = sql + `)`;
+
+        return sql; 
     }
 
     this.remover = function(connection, objeto, callback){
