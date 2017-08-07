@@ -9,34 +9,31 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <ion-list *ngFor="let produto of produtos">
+    <ion-item-sliding>
+      <ion-item (click)="seleciona(produto)">
+        <ion-avatar *ngIf="produto.img == null" item-left>
+          <img src="../../assets/img/semImagem.gif">
+        </ion-avatar>
 
-    <ion-list *ngFor="let produto of produtos">
-      <ion-item-sliding>
-        <ion-item (click)="seleciona(produto)">
+        <ion-avatar *ngIf="produto.img != null" item-left>
+          <img [src]="produto.img">
+        </ion-avatar>
 
-          <ion-avatar *ngIf="produto.img == null" item-left>
-            <img src="../../assets/img/semImagem.gif">
-          </ion-avatar>
+        <h2 color="twitterDarkBlue">{{produto.nome}}</h2>
+        <p>Preço: {{produto.preco}}</p>
+        <p>Cor: {{produto.cor}}</p>
+        <p>Tamanho: {{produto.tamanho}}</p>
+      </ion-item>
 
-          <ion-avatar *ngIf="produto.img != null" item-left>
-            <img [src]="produto.img">
-          </ion-avatar>
-
-          <h2 color="twitterDarkBlue">{{produto.nome}}</h2>
-          <p>Preço: {{produto.preco}}</p>
-          <p>Cor: {{produto.cor}}</p>
-          <p>Tamanho: {{produto.tamanho}}</p>
-        </ion-item>
-
-        <ion-item-options>
-          <button ion-button color="danger" (click)="remover(produto)">
-            <ion-icon ios="ios-trash" md="md-trash"></ion-icon> Excluir
-          </button>
-        </ion-item-options>
+      <ion-item-options>
+        <button ion-button color="danger" (click)="remover(produto)">
+          <ion-icon ios="ios-trash" md="md-trash"></ion-icon> Excluir
+        </button>
+      </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-
 
   <ion-fab right bottom>
     <button ion-fab color="#00aced" (click)="cadastra()">
@@ -49,5 +46,4 @@
       <ion-icon ios="ios-search" md="md-search"></ion-icon>
     </button>
   </ion-fab>
-
 </ion-content>

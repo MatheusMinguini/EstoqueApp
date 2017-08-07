@@ -1,12 +1,12 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>
-            <p color="detail">Procurar Produtos</p>
-        </ion-title>
-        <ion-buttons end>
-          <menu-icon></menu-icon>
-        </ion-buttons>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-title>
+        <p color="detail">Procurar Produtos</p>
+    </ion-title>
+    <ion-buttons end>
+      <menu-icon></menu-icon>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
 <ion-content>
@@ -113,6 +113,11 @@
     </form>
   </ion-list>
 
+  <button color="cinza" ion-button block (click)="limparFiltros()">
+        LIMPAR FILTROS
+  </button>
+
+  <br>
   <button *ngIf="mostrarBotao" [color]="myColor" [round]="isRound" ion-button block (click)="pesquisar()">
         BUSCA LÁ
   </button>

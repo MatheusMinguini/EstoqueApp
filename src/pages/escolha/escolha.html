@@ -1,29 +1,30 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>
-            <p color="detail">Detalhe do Produto</p>
-        </ion-title>
-        <ion-buttons end>
-          <menu-icon></menu-icon>
-         </ion-buttons>
-    </ion-navbar>
-
+  <ion-navbar>
+    <ion-title>
+      <p color="detail">Detalhe do Produto</p>
+    </ion-title>
+    <ion-buttons end>
+      <menu-icon></menu-icon>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
-
 
 <ion-content>
   <ion-card>
-    
-    <img [src]="produto.img" alt="Evento">
-          
+
+    <img [src]="produto.img">
+
     <ion-card-content>
       <ion-card-title color="twitterDarkBlue">
         <b>{{produto.nome | uppercase}}</b>
       </ion-card-title>
-        <p id="descricao">
-          {{produto.descricao}}
-        </p>
+
+      <p id="descricao">
+        {{produto.descricao}}
+      </p>
+
       <br>
+
       <ion-item-divider>
         <ion-card-header>
           <h5 color="twitterDarkBlue"><b>INFORMAÇÕES</b></h5>

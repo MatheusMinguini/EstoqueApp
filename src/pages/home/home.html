@@ -1,17 +1,14 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>
-        <p color="detail">PROCURA LÁ</p>
-        </ion-title>
-    </ion-navbar>
+  <ion-navbar>
+      <ion-title>
+      <p color="detail">PROCURA LÁ</p>
+      </ion-title>
+  </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
   <div *ngIf="produtos.length == 0">
-
     <img src="assets/img/logo.png"/>
-
   </div>
 
   <div *ngIf="produtos.length > 0">
