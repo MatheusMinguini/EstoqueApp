@@ -13,6 +13,7 @@ import { MenuComponent } from '../pages/menu/menu.component';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { Camera } from 'ionic-native';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -48,7 +49,8 @@ import 'rxjs/add/operator/toPromise';
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     Camera,
-    BarcodeScanner
+    BarcodeScanner,
+    SocialSharing
   ]
 })
 

@@ -4,7 +4,6 @@ import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
 import { GrupoService } from '../../services/grupo.service';
 import { Configuracao } from '../../services/config.service';
-
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
@@ -31,6 +30,8 @@ export class EscolhaPage{
 
     msgSucesso: Alert;
 
+    msg : string;
+
 
 
     constructor(public _grupoService : GrupoService,
@@ -42,6 +43,14 @@ export class EscolhaPage{
     }
 
     ngOnInit(){
+
+      this.produto = this.parametro.get('produtoSelecionado');
+      if(this.produto.img == null){
+        this.produto.img = "assets/img/semImagem.gif";
+      }
+
+      this.msg = `Nome do Produto: ${this.produto.nome}\nPreço: ${this.produto.preco} \nCor: ${this.produto.cor} \nTamanho: ${this.produto.tamanho} \nDescrição: ${this.produto.descricao} `;
+
       this.msgSucesso = this._alert.create({
         title : 'Compartilhado',
         buttons : [{ text : 'Ok'}]
@@ -50,11 +59,6 @@ export class EscolhaPage{
       this.loader = this._loadingCtrl.create({
           content : "Compartilhando os dados, aguarde..."
       });
-
-      this.produto = this.parametro.get('produtoSelecionado');
-      if(this.produto.img == null){
-        this.produto.img = "../../assets/img/semImagem.gif";
-      }
 
       if(this.produto.codigo_barras == null){
         this.produto.codigo_barras = "Não cadastrado";
@@ -70,12 +74,17 @@ export class EscolhaPage{
     }
 
     compartilharWhatsApp(){
-      this.loader.present();
-      let msg = `Nome do Produto: ${this.produto.nome}\n Preço: ${this.produto.preco} \n Cor: ${this.produto.cor} \n Tamanho: ${this.produto.tamanho} \n`;
-
-      this.socialSharing.shareViaWhatsApp(msg, this.produto.img, null).then(() => {
-        this.loader.dismiss();
+      this.socialSharing.shareViaWhatsApp(this.msg, this.produto.img, null).then(() => {
         this.msgSucesso.setSubTitle('Os dados foram compartilhados no WhatsApp');
+        this.msgSucesso.present();
+      }).catch(() => {
+        this.criarMensagem('Erro ao compartilhar', 'Encontramos um erro ao compartilhar, tente mais tarde').present();
+      });
+    }
+
+    compartilharFacebook(){
+      this.socialSharing.shareViaFacebook(this.msg, this.produto.img, null).then(() => {
+        this.msgSucesso.setSubTitle('Os dados foram compartilhados no Facebook');
         this.msgSucesso.present();
       }).catch(() => {
         this.loader.dismiss();
@@ -83,12 +92,24 @@ export class EscolhaPage{
       });
     }
 
-    compartilharFacebook(){
-
+    compartilharInstagram(){
+      this.socialSharing.shareViaInstagram(this.msg, this.produto.img).then(() => {
+        this.msgSucesso.setSubTitle('Os dados foram compartilhados no Instagram');
+        this.msgSucesso.present();
+      }).catch(() => {
+        this.loader.dismiss();
+        this.criarMensagem('Erro ao compartilhar', 'Encontramos um erro ao compartilhar, tente mais tarde').present();
+      });
     }
 
-    compartilharInstagram(){
-
+    compartilhar(){
+      this.socialSharing.share(this.msg, "Informações do produto", this.produto.img, null).then(() => {
+        this.msgSucesso.setSubTitle('Os dados foram compartilhados');
+        this.msgSucesso.present();
+      }).catch(() => {
+        this.loader.dismiss();
+        this.criarMensagem('Erro ao compartilhar', 'Encontramos um erro ao compartilhar, tente mais tarde').present();
+      }); 
     }
 
     criarMensagem (titulo: string, subtitle: string) : Alert {
