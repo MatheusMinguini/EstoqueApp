@@ -25,6 +25,8 @@ export class EscolhaPage{
 
     public produto : Produto;
 
+    cor : string;
+
     constructor(public _grupoService : GrupoService, public parametro : NavParams, public _alert: AlertController/*, private socialSharing: SocialSharing*/){
 
     }
@@ -37,6 +39,9 @@ export class EscolhaPage{
 
       if(this.produto.codigo_barras == null){
         this.produto.codigo_barras = "Não cadastrado";
+        this.cor = 'danger';
+      }else{
+        this.cor = 'dark-grey';
       }
 
       /*this.grupoDoProduto = this._grupoService.buscarGrupos().then(elemento => {
