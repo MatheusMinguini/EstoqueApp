@@ -7,7 +7,7 @@ import { Http } from '@angular/http';
 import { ResultadoPage } from '../resultado/resultado';
 import { Configuracao } from '../../services/config.service';
 import { HomePage } from '../home/home';
-import { BarcodeScanner, BarcodeScannerOptions  } from '@ionic-native/barcode-scanner';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @Component({
   providers : [ Configuracao, GrupoService ],

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, AlertController, Alert } from 'ionic-angular';
+import { NavParams, LoadingController, AlertController, Alert } from 'ionic-angular';
 import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
 import { GrupoService } from '../../services/grupo.service';
 import { Configuracao } from '../../services/config.service';
 
-/*import { SocialSharing } from '@ionic-native/social-sharing';*/
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
   providers : [ Configuracao, GrupoService ],
@@ -27,11 +27,30 @@ export class EscolhaPage{
 
     cor : string;
 
-    constructor(public _grupoService : GrupoService, public parametro : NavParams, public _alert: AlertController/*, private socialSharing: SocialSharing*/){
+    loader : any;
+
+    msgSucesso: Alert;
+
+
+
+    constructor(public _grupoService : GrupoService,
+      public parametro : NavParams,
+      public _alert: AlertController,
+      private _loadingCtrl: LoadingController,
+      private socialSharing: SocialSharing){
 
     }
 
     ngOnInit(){
+      this.msgSucesso = this._alert.create({
+        title : 'Compartilhado',
+        buttons : [{ text : 'Ok'}]
+      });
+
+      this.loader = this._loadingCtrl.create({
+          content : "Compartilhando os dados, aguarde..."
+      });
+
       this.produto = this.parametro.get('produtoSelecionado');
       if(this.produto.img == null){
         this.produto.img = "../../assets/img/semImagem.gif";
@@ -51,7 +70,17 @@ export class EscolhaPage{
     }
 
     compartilharWhatsApp(){
+      this.loader.present();
+      let msg = `Nome do Produto: ${this.produto.nome}\n Preço: ${this.produto.preco} \n Cor: ${this.produto.cor} \n Tamanho: ${this.produto.tamanho} \n`;
 
+      this.socialSharing.shareViaWhatsApp(msg, this.produto.img, null).then(() => {
+        this.loader.dismiss();
+        this.msgSucesso.setSubTitle('Os dados foram compartilhados no WhatsApp');
+        this.msgSucesso.present();
+      }).catch(() => {
+        this.loader.dismiss();
+        this.criarMensagem('Erro ao compartilhar', 'Encontramos um erro ao compartilhar, tente mais tarde').present();
+      });
     }
 
     compartilharFacebook(){
