@@ -35,6 +35,10 @@ export class EscolhaPage{
         this.produto.img = "../../assets/img/semImagem.gif";
       }
 
+      if(this.produto.codigo_barras == null){
+        this.produto.codigo_barras = "Não cadastrado";
+      }
+
       /*this.grupoDoProduto = this._grupoService.buscarGrupos().then(elemento => {
         return elemento.find((objPromise) => objPromise.id == this.produto.grupo_id);
       }).catch (erro => console.log("Erro: " + erro));*/

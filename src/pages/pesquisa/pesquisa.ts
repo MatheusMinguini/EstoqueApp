@@ -170,17 +170,17 @@ export class PesquisaPage implements OnInit{
   }
 
   lerCodigoBarras(){
-    this.mostrarBotao =  true;
-    /*this.barcodeScanner.scan().then((barcodeData) => {
+    this.barcodeScanner.scan().then((barcodeData) => {
       this.result = barcodeData;
       this.produto.codigo_barras = this.result.text;
+      this.mostrarBotao =  true;
     }, (err) => {
       this._alertCtrl.create({
         title: 'Aviso',
         buttons: [{text: 'Entendi'}],
         subTitle: 'Ocorreu algum problema ao ler o Código de barras'
       }).present();
-    });*/
+    })
   }
 
   limparFiltros(){

@@ -32,15 +32,17 @@
 
         <ion-row>
           <ion-col text-right>
+            <h5 color="dark-grey"><b>Código de Barras :</b></h5>
             <h5 color="dark-grey"><b>Preço : </b></h5>
             <h5 color="dark-grey"><b>Cor :</b></h5>
             <h5 color="dark-grey"><b>Tamanho :</b> </h5>
             <h5 color="dark-grey"><b>Data do cadastro :</b> </h5>
             <!-- <h5 color="dark-grey"><b>Grupo:</b> {{grupoDoProduto.nome}}</h5> -->
-            <h5 color="dark-grey" *ngIf="produto.genero === 'm'"><b>Público  :</b></h5>
-            <h5 color="dark-grey" *ngIf="produto.genero === 'f'"><b>Público  :</b></h5>
+            <h5 color="dark-grey"><b>Público  :</b></h5>
+            
           </ion-col>
           <ion-col text-left>
+            <h5 color="dark-grey">{{produto.codigo_barras}}</h5>
             <h5 color="dark-grey"> R$ {{produto.preco}}</h5>
             <h5 color="dark-grey"> {{produto.cor}}</h5>
             <h5 color="dark-grey"> {{produto.tamanho}}</h5>
