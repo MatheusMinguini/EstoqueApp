@@ -24,13 +24,14 @@ module.exports =  function(){
 
     this.salvar = function(connection, objeto, callback){
 
-        let bitmap = new Buffer(objeto.img, 'base64');
-
         const path = `C:\\Users\\matheus.minguini\\Pictures//${objeto.nome}.png`
 
-        //writeSync(caminho, encode);
+        if(objeto.img != undefined){
+            let bitmap = new Buffer(objeto.img, 'base64');
+            fs.writeFileSync(path, bitmap);
+        }
 
-        fs.writeFileSync(path, bitmap);
+        //writeSync(caminho, encode);      
 
         let sql = this.montarSQLparaInserir(objeto, path);
         
