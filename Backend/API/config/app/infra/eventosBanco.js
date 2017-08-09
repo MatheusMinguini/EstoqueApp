@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 module.exports =  function(){
 
     this.listar = function(connection, callback){
@@ -22,12 +24,20 @@ module.exports =  function(){
 
     this.salvar = function(connection, objeto, callback){
 
-        let sql = this.montarSQLparaInserir(objeto);
+        let bitmap = new Buffer(objeto.img, 'base64');
+
+        const path = `C:\\Users\\matheus.minguini\\Pictures//${objeto.nome}.png`
+
+        //writeSync(caminho, encode);
+
+        fs.writeFileSync(path, bitmap);
+
+        let sql = this.montarSQLparaInserir(objeto, path);
         
         connection.query(sql, callback);
     }
 
-    this.montarSQLparaInserir =  function(objeto){
+    this.montarSQLparaInserir =  function(objeto, caminho){
 
         const data_atual = new Date();
         let data_banco = data_atual.toISOString().substring(0, 10);
@@ -47,7 +57,7 @@ module.exports =  function(){
 
         if(objeto.codigo_barras != undefined) sql = sql + `, '${objeto.codigo_barras}'`;
 
-        if(objeto.img != undefined) sql = sql + `, '${objeto.img}'`;
+        if(objeto.img != undefined) sql = sql + `, '${caminho}'`;
 
         sql = sql + `)`;
 
