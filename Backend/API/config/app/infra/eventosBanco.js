@@ -67,6 +67,8 @@ module.exports =  function(){
 
     this.remover = function(connection, objeto, callback){
 
+        fs.unlinkSync(objeto.img);
+
         var string = "DELETE FROM produto WHERE id = " + objeto.id;
 
         connection.query(string, callback);
