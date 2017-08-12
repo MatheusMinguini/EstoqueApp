@@ -24,18 +24,21 @@ module.exports =  function(){
 
     this.salvar = function(connection, objeto, callback){
 
-        const path = `C:\\Users\\matheus.minguini\\Pictures//${objeto.nome}.png`
+        const path = `/home/procurala/www/imagens/${objeto.nome}.jpeg`;
 
         if(objeto.img != undefined){
             let bitmap = new Buffer(objeto.img, 'base64');
             fs.writeFileSync(path, bitmap);
-        }
+        }    
 
-        //writeSync(caminho, encode);      
-
-        let sql = this.montarSQLparaInserir(objeto, path);
+        let caminho_acesso = `http://imagens.procurala.kinghost.net/${objeto.nome}.jpeg`; 
+        let sql = this.montarSQLparaInserir(objeto, caminho_acesso);
         
         connection.query(sql, callback);
+    }
+
+    this.existeDuplicidadeNome = function(){
+
     }
 
     this.montarSQLparaInserir =  function(objeto, caminho){
@@ -67,7 +70,7 @@ module.exports =  function(){
 
     this.remover = function(connection, objeto, callback){
          
-        if(objeto.img != null) fs.unlinkSync(objeto.img);
+        if(objeto.img != null) fs.unlinkSync(`http://imagens.procurala.kinghost.net/${objeto.img}`);
         
         var string = "DELETE FROM produto WHERE id = " + objeto.id;
 

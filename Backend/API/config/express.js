@@ -15,6 +15,8 @@ app.use(bodyParser.json({
 
 app.use(cors);  
 
+app.use(express.static(`./www/imagens/imagens/`));
+
 module.exports = function configura(){
     return app;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, NavController, AlertController, Alert } from 'ionic-angular';
+import { NavParams, NavController, LoadingController, AlertController, Alert } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { HomePage } from '../home/home';
 import { Produto } from '../../models/Produto';
@@ -20,8 +20,11 @@ export class FormularioCadastroPage {
     myColor: string = 'search-buttom';
     isRound: boolean = false;
 
+    loader : any;
+
     constructor(public parametro : NavParams ,
       public _navController: NavController,
+      private _loadingCtrl: LoadingController,
       public _http: Http,
       public _alert : AlertController,
       public _configuracao: Configuracao,
@@ -37,25 +40,34 @@ export class FormularioCadastroPage {
           title: 'Aviso',
           buttons : [{text : 'Ok', handler : () => this._navController.setRoot(HomePage)}]
         })
+
+      this.loader = this._loadingCtrl.create(
+        {
+          content : "Salvando o produto, aguarde"
+        }
+      );
     }
 
     salvar(){
 
+      this.loader.present();
       this._http.post(this._configuracao.getAdressAPI() + '/salvar', this.produto)
         .toPromise().then(elemento => {
           this._mensagem.setSubTitle('Produto cadastrado com sucesso');
           this._mensagem.present();
+          this.loader.dismiss();
       }).catch (erro => {
           this._mensagem.setSubTitle('Ocorreu algum problema. Tente mais tarde');
           this._mensagem.present();
           console.log(erro);
+          this.loader.dismiss();
       });
     }
 
     private abrirGaleria (): void {
        let cameraOptions = {
         sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-        destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
+        destinationType: Camera.DestinationType.DATA_URL/*FILE_URI*/,
         quality: 100,
         targetWidth: 1000,
         targetHeight: 1000,
@@ -74,7 +86,7 @@ export class FormularioCadastroPage {
     private abrirCamera (): void {
       let cameraOptions = {
         sourceType: Camera.PictureSourceType.CAMERA,
-        destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
+        destinationType: Camera.DestinationType.DATA_URL/*FILE_URI*/,
         saveToPhotoAlbum: true,
         quality: 100,
         targetWidth: 1000,

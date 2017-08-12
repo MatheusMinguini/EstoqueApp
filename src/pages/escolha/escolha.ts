@@ -32,8 +32,6 @@ export class EscolhaPage{
 
     msg : string;
 
-
-
     constructor(public _grupoService : GrupoService,
       public parametro : NavParams,
       public _alert: AlertController,
@@ -107,7 +105,6 @@ export class EscolhaPage{
         this.msgSucesso.setSubTitle('Os dados foram compartilhados');
         this.msgSucesso.present();
       }).catch(() => {
-        this.loader.dismiss();
         this.criarMensagem('Erro ao compartilhar', 'Encontramos um erro ao compartilhar, tente mais tarde').present();
       }); 
     }

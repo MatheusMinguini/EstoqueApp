@@ -173,7 +173,11 @@ export class PesquisaPage implements OnInit{
     this.barcodeScanner.scan().then((barcodeData) => {
       this.result = barcodeData;
       this.produto.codigo_barras = this.result.text;
-      this.mostrarBotao =  true;
+
+      if(this.produto.codigo_barras != null){
+        this.mostrarBotao =  true;
+      }
+      
     }, (err) => {
       this._alertCtrl.create({
         title: 'Aviso',
