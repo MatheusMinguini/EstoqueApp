@@ -9,15 +9,14 @@
 <ion-content>
   <ion-item class="gallery-button" text-center *ngIf="produto.img == null">
     <img src="assets/img/semImagem.gif" alt="Produto">
-    <!--<img [src]="imageSrc"/>-->
   </ion-item>
 
   <ion-item class="gallery-button" text-center *ngIf="produto.img != null">
-    <img [src]="produto.img"/>
+    <img id="imagemSelecionada" alt="Produto">
   </ion-item>
 
   <ion-item text-center>
-    <ion-icon color="detail" name="images" ios="ios-images" md="md-images" on-tap="presentActionSheet()"></ion-icon>
+    <ion-icon color="detail" name="images" ios="ios-images" md="md-images" on-tap="apresentarOpcoes()"></ion-icon>
     <p color="twitterDarkBlue"><b>Escolha uma Imagem</b></p>
   </ion-item>
 

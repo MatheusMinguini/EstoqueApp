@@ -30,8 +30,6 @@ export class FormularioCadastroPage {
       public _configuracao: Configuracao,
       public actionSheetCtrl: ActionSheetController){
 
-
-
     }
 
     ngOnInit() {
@@ -49,7 +47,6 @@ export class FormularioCadastroPage {
     }
 
     salvar(){
-
       this.loader.present();
       this._http.post(this._configuracao.getAdressAPI() + '/salvar', this.produto)
         .toPromise().then(elemento => {
@@ -65,43 +62,55 @@ export class FormularioCadastroPage {
     }
 
     private abrirGaleria (): void {
-       let cameraOptions = {
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-        destinationType: Camera.DestinationType.DATA_URL/*FILE_URI*/,
-        quality: 100,
-        targetWidth: 1000,
-        targetHeight: 1000,
-        encodingType: Camera.EncodingType.JPEG,
-        correctOrientation: true
-      }
-      let configuracao : Object =  this.configuracoesPhoto('');
-      Camera.getPicture(cameraOptions).then(photo => this.produto.img = photo,
-        err => {
-          this._mensagem.setSubTitle(err);
-          this._mensagem.present();
-        });
-    }
 
+      let configuracao : Object =  this.configuracoesPhoto('');
+
+      Camera.getPicture(configuracao).then(photo => {
+        this.produto.img = photo;
+        let imagem : any;
+        imagem = document.getElementById('imagemSelecionada');
+        imagem.src = "data:image/jpeg;base64," + photo;
+      },
+      err => {
+        this._mensagem.setSubTitle(err);
+        this._mensagem.present();
+      });
+    }
 
     private abrirCamera (): void {
+      let configuracao : Object =  this.configuracoesPhoto('camera');
+
+      Camera.getPicture(configuracao).then(photo => {
+        this.produto.img = photo;
+        let imagem : any;
+        imagem = document.getElementById('imagemSelecionada');
+        imagem.src = "data:image/jpeg;base64," + photo;
+      },
+      err => {
+        this._mensagem.setSubTitle(err);
+        this._mensagem.present();
+      });
+    }
+
+    configuracoesPhoto(param){
+      let fonte;
+
+      (param == "camera")? fonte = Camera.PictureSourceType.CAMERA : fonte = Camera.PictureSourceType.PHOTOLIBRARY;
+
       let cameraOptions = {
-        sourceType: Camera.PictureSourceType.CAMERA,
-        destinationType: Camera.DestinationType.DATA_URL/*FILE_URI*/,
-        saveToPhotoAlbum: true,
+        sourceType: fonte,
+        destinationType: Camera.DestinationType.DATA_URL,
         quality: 100,
         targetWidth: 1000,
         targetHeight: 1000,
         encodingType: Camera.EncodingType.JPEG,
         correctOrientation: true
       }
-      Camera.getPicture(cameraOptions).then(photo => this.produto.img = photo,
-        err => {
-          this._mensagem.setSubTitle(err);
-          this._mensagem.present();
-        });
+
+      return cameraOptions;
     }
 
-    presentActionSheet() {
+    apresentarOpcoes() {
       let actionSheet = this.actionSheetCtrl.create({
         title: 'Inserir foto para o produto',
         buttons: [
@@ -123,23 +132,6 @@ export class FormularioCadastroPage {
         ]
       });
       actionSheet.present();
-    }
-
-    configuracoesPhoto(param){
-        let fonte;
-       (param == "camera")? fonte = 'Camera.PictureSourceType.PHOTOLIBRARY' : fonte = 'Camera.PictureSourceType.PHOTOLIBRARY';
-
-      let cameraOptions = {
-        sourceType: fonte,
-        destinationType: Camera.DestinationType./*DATA_URL*/FILE_URI,
-        quality: 100,
-        targetWidth: 1000,
-        targetHeight: 1000,
-        encodingType: Camera.EncodingType.JPEG,
-        correctOrientation: true
-      }
-
-      return cameraOptions;
     }
 
 }
