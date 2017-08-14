@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController, AlertController, Alert } from 'ionic-angular';
+import { NavParams, NavController, LoadingController, AlertController, Alert } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Produto } from '../../models/Produto';
 import { Grupo } from '../../models/Grupo';
 import { GrupoService } from '../../services/grupo.service';
-import { FormularioCadastroPage } from '../formulario/formulario_final';
 import { BarCodeForm } from '../formulario/formulario_barCode';
 import { Configuracao } from '../../services/config.service';
+import { Http } from '@angular/http';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 
@@ -27,14 +27,23 @@ export class FormularioPage{
   myColor: string;
   isRound: boolean;
 
+  public nomeValido: boolean;
+  public publicoSelecionado: boolean;
 
-  constructor(public _grupoService : GrupoService, public parametro : NavParams ,
+
+  constructor(public _grupoService : GrupoService, public parametro : NavParams,
       public _navController : NavController,
-      public _alert : AlertController){
+      public _alert : AlertController,
+      private _loadingCtrl: LoadingController,
+      public _http: Http, public _configuracao : Configuracao){
 
   }
 
   ngOnInit(){
+
+    this.nomeValido = false;
+    this.publicoSelecionado = false;
+
     this.produto = new Produto();
 
       this._mensagem = this._alert.create({
@@ -44,12 +53,6 @@ export class FormularioPage{
 
       this.myColor = 'search-buttom';
       this.isRound = false;
-
-      this._grupoService.buscarGrupos().then(elemento => {
-        this.grupos = elemento;
-      }).catch (erro => {
-          console.log(erro);
-      })
   }
 
   continuar(){
@@ -62,5 +65,70 @@ export class FormularioPage{
             buttons : [{ text: 'Entendi'}]
         }).present();
     }
+  }
+
+  verificarDuplicidadeNome(){
+
+    const loader = this._loadingCtrl.create(
+        {
+          content : "Verificando nome, aguarde"
+        }
+      );
+
+    loader.present();
+
+    this._http.get(this._configuracao.getAdressAPI() + '/verificaDuplicidadeNome?nome=' + this.produto.nome)
+    .map(resp => resp.json())
+      .toPromise()
+        .then(elemento => {
+          loader.dismiss();
+
+          if (typeof elemento == 'undefined' || elemento.length == 0) {
+             this.nomeValido = true;
+          }else{
+            this._alert.create(
+            {
+              title : 'Nome Existente',
+              buttons : [{ text : "Tudo bem"}],
+              subTitle : 'Verificamos e, já existem um produto com esse nome'
+            }).present();
+          }
+
+        }).catch (erro => {
+          loader.dismiss();
+          this._alert.create(
+            {
+              title : 'Erro',
+              buttons : [{ text : "Tudo bem", handler : () => this._navController.setRoot(HomePage) }],
+              subTitle : 'Houve um erro ao consultar o nome, tente mais tarde'
+            }
+          ).present();
+        });
+
+  }
+
+  buscarGrupo(){
+
+    const loader = this._loadingCtrl.create({
+      content : "Buscando grupos para esse público, aguarde"
+    });
+
+    loader.present();
+
+    this._grupoService.buscarGruposInserir(this.produto.genero).then(elemento => {
+        loader.dismiss();
+        this.grupos = elemento;
+        this.publicoSelecionado = true;
+      }).catch (erro => {
+        loader.dismiss();
+        this._alert.create(
+            {
+              title : 'Erro',
+              buttons : [{ text : "Tudo bem", handler : () => this._navController.setRoot(HomePage) }],
+              subTitle : 'Houve um erro ao consultar os grupos, tente mais tarde'
+            }
+          ).present();
+        console.log(erro);
+      })
   }
 }

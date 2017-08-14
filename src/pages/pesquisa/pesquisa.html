@@ -95,29 +95,30 @@
 
       <br>
 
-      <ion-item>
-        <ion-label color="twitterDarkBlue">Grupo</ion-label>
-        <ion-select [(ngModel)]="produto.grupo_id" multiple="false" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
-        </ion-select>
+      <ion-card>
+        <ion-card-header  color="twitterDarkBlue">
+          <b>Público</b>
+        </ion-card-header>
+
+        <ion-list radio-group [(ngModel)]="produto.genero" (ngModelChange)="buscarGrupo()" [ngModelOptions]="{standalone: true}">
+          <ion-item>
+            <ion-label color="twitterDarkBlue">Masculino</ion-label>
+            <ion-radio  value="m" checked></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label color="twitterDarkBlue">Feminino</ion-label>
+            <ion-radio value="f"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+
+      <ion-item *ngIf="publicoSelecionado">
+          <ion-label color="twitterDarkBlue">Grupo</ion-label>
+          <ion-select [(ngModel)]="produto.grupo_id" multiple="false" [ngModelOptions]="{standalone: true}">
+            <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
+          </ion-select>
       </ion-item>
 
-        <ion-card>
-          <ion-card-header  color="twitterDarkBlue">
-            <b>Público</b>
-          </ion-card-header>
-
-          <ion-list radio-group [(ngModel)]="produto.genero" [ngModelOptions]="{standalone: true}">
-            <ion-item>
-              <ion-label color="twitterDarkBlue">Masculino</ion-label>
-              <ion-radio value="m" checked></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label color="twitterDarkBlue">Feminino</ion-label>
-              <ion-radio value="f"></ion-radio>
-            </ion-item>
-          </ion-list>
-        </ion-card>
     </form>
   </ion-list>
 

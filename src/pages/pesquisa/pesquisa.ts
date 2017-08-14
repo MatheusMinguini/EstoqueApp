@@ -30,6 +30,7 @@ export class PesquisaPage implements OnInit{
   pesquisarTodos: boolean;
   pesquisarCodigoBarras: boolean;
   mostrarBotao : boolean;
+  publicoSelecionado : boolean;
 
 
   constructor(private barcodeScanner: BarcodeScanner,  public _grupoService : GrupoService, public _http: Http, public navCtrl: NavController,
@@ -44,6 +45,8 @@ export class PesquisaPage implements OnInit{
     this.pesquisarTodos = false;
     this.pesquisarCodigoBarras=  false;
     this.mostrarBotao = true;
+    this.publicoSelecionado = false;
+
     this.produto = new Produto();
     this.buscarCores();
     this.buscarTamanhos();
@@ -60,12 +63,6 @@ export class PesquisaPage implements OnInit{
         }
       ]
     })
-
-    this._grupoService.buscarGrupos().then(elemento => {
-        this.grupos = elemento;
-      }).catch (erro => {
-          console.log(erro);
-      })
   }
 
   buscarTamanhos(){
@@ -177,7 +174,7 @@ export class PesquisaPage implements OnInit{
       if(this.produto.codigo_barras != null){
         this.mostrarBotao =  true;
       }
-      
+
     }, (err) => {
       this._alertCtrl.create({
         title: 'Aviso',
@@ -188,8 +185,35 @@ export class PesquisaPage implements OnInit{
   }
 
   limparFiltros(){
+    this.publicoSelecionado = false;
     this.produto = new Produto();
   }
+
+  buscarGrupo(){
+
+    const loader = this._loadingCtrl.create({
+      content : "Buscando grupos para esse público, aguarde"
+    });
+
+    loader.present();
+
+    this._grupoService.buscarGruposInserir(this.produto.genero).then(elemento => {
+        loader.dismiss();
+        this.grupos = elemento;
+        this.publicoSelecionado = true;
+      }).catch (erro => {
+        loader.dismiss();
+        this._alertCtrl.create(
+            {
+              title : 'Erro',
+              buttons : [{ text : "Tudo bem", handler : () => this.navCtrl.setRoot(HomePage) }],
+              subTitle : 'Houve um erro ao consultar os grupos, tente mais tarde'
+            }
+          ).present();
+        console.log(erro);
+      })
+  }
+
 }
 
 

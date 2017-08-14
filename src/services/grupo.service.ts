@@ -18,4 +18,11 @@ export class GrupoService {
           .toPromise();
 
     }
+
+    buscarGruposInserir(genero){
+      return this._http.get(this._configuracao.getAdressAPI()  + '/gruposInserir?genero=' + genero)
+        .map(resp => resp.json())
+          .toPromise();
+
+    }
 }

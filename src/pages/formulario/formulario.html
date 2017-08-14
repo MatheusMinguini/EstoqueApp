@@ -10,64 +10,83 @@
 </ion-header>
 
 <ion-content>
-    <form (ngSubmit)="continuar()">
-      <ion-item>
-        <ion-label color="twitterDarkBlue" floating>Nome</ion-label>
-        <ion-input name="nome" [(ngModel)]="produto.nome" maxlength="20" clearInput></ion-input>
-      </ion-item>
+    <form>
 
-      <ion-item>
-        <ion-label color="twitterDarkBlue" floating>Descrição</ion-label>
-        <ion-input name="descricao" [(ngModel)]="produto.descricao" maxlength="100" clearInput></ion-input>
-      </ion-item>
+      <div *ngIf="!nomeValido">
+        <ion-item>
+          <ion-label color="twitterDarkBlue" floating>Nome</ion-label>
+          <ion-input name="nome" [(ngModel)]="produto.nome" maxlength="20" clearInput></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label color="twitterDarkBlue" floating>Preço</ion-label>
-        <ion-input [(ngModel)]="produto.preco" [ngModelOptions]="{standalone: true}"></ion-input>
-        <!-- <ion-input [(ngModel)]="produto.preco" [ngModelOptions]="{standalone: true}" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" currencyMask></ion-input> -->
-      </ion-item>
+        <ion-row>
+          <ion-col text-center>
+            <button [color]="myColor" [round]="true" (click)="verificarDuplicidadeNome()" ion-button small>
+              Verificar
+            </button>
+          </ion-col>
+        </ion-row>
 
-      <ion-item>
-        <ion-label color="twitterDarkBlue" floating>Cor</ion-label>
-        <ion-input name="cor" [(ngModel)]="produto.cor" clearInput></ion-input>
-      </ion-item>
+        <ion-row>
+          <ion-col text-center>
+            <h6 color="twitterDarkBlue">Lembre-se: Não pode utilizar nomes já cadastrados!</h6>
+          </ion-col>
+        </ion-row>
+      </div>
 
-      <ion-item>
-        <ion-label color="twitterDarkBlue" floating>Tamanho</ion-label>
-        <ion-input name="tamanho" [(ngModel)]="produto.tamanho" clearInput></ion-input>
-      </ion-item>
+      <div *ngIf="nomeValido">
+        <ion-item>
+          <ion-label color="twitterDarkBlue" floating>Descrição</ion-label>
+          <ion-input name="descricao" [(ngModel)]="produto.descricao" maxlength="100" clearInput></ion-input>
+        </ion-item>
 
-      <br>
+        <ion-item>
+          <ion-label color="twitterDarkBlue" floating>Preço</ion-label>
+          <ion-input [(ngModel)]="produto.preco" [ngModelOptions]="{standalone: true}"></ion-input>
+          <!-- <ion-input [(ngModel)]="produto.preco" [ngModelOptions]="{standalone: true}" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" currencyMask></ion-input> -->
+        </ion-item>
 
-      <ion-item>
-        <ion-label color="twitterDarkBlue">Grupo</ion-label>
-        <ion-select [(ngModel)]="produto.grupo_id" multiple="false" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item>
+          <ion-label color="twitterDarkBlue" floating>Cor</ion-label>
+          <ion-input name="cor" [(ngModel)]="produto.cor" clearInput></ion-input>
+        </ion-item>
 
-      <ion-card>
-        <ion-card-header  color="twitterDarkBlue">
-          <b>Público</b>
-        </ion-card-header>
+        <ion-item>
+          <ion-label color="twitterDarkBlue" floating>Tamanho</ion-label>
+          <ion-input name="tamanho" [(ngModel)]="produto.tamanho" clearInput></ion-input>
+        </ion-item>
 
-        <ion-list radio-group [(ngModel)]="produto.genero" [ngModelOptions]="{standalone: true}">
-          <ion-item>
-            <ion-label color="twitterDarkBlue">Masculino</ion-label>
-            <ion-radio value="m" checked></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label color="twitterDarkBlue">Feminino</ion-label>
-            <ion-radio value="f"></ion-radio>
-          </ion-item>
-        </ion-list>
-      </ion-card>
+        <br>
 
-      <br>
+        <ion-card>
+          <ion-card-header  color="twitterDarkBlue">
+            <b>Público</b>
+          </ion-card-header>
 
-      <button [color]="myColor" [round]="isRound" ion-button block type="submit">
-          CONTINUAR CADASTRO
-      </button>
+          <ion-list radio-group [(ngModel)]="produto.genero" (ngModelChange)="buscarGrupo()" [ngModelOptions]="{standalone: true}">
+            <ion-item>
+              <ion-label color="twitterDarkBlue">Masculino</ion-label>
+              <ion-radio  value="m" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label color="twitterDarkBlue">Feminino</ion-label>
+              <ion-radio value="f"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+
+        <ion-item *ngIf="publicoSelecionado">
+          <ion-label color="twitterDarkBlue">Grupo</ion-label>
+          <ion-select [(ngModel)]="produto.grupo_id" multiple="false" [ngModelOptions]="{standalone: true}">
+            <ion-option *ngFor="let grupo of grupos" [value]="grupo.id" >{{grupo.nome}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <br>
+
+        <button [color]="myColor" [round]="isRound" (click)="continuar()" ion-button block >
+            CONTINUAR CADASTRO
+        </button>
+      </div>
     </form>
 </ion-content>
 
