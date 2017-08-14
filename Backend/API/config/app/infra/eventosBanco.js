@@ -74,7 +74,7 @@ module.exports =  function(){
 
   this.remover = function(connection, objeto, callback){
 
-    if(objeto.img != null) fs.unlinkSync(`http://imagens.procurala.kinghost.net/${objeto.img}`);
+    if(objeto.img != null) fs.unlinkSync(`http://imagens.procurala.kinghost.net/${objeto.nome}`);
 
     var string = "DELETE FROM produto WHERE id = " + objeto.id;
 
