@@ -59,12 +59,59 @@ export class FormularioPage{
     if(this.produto.verificarCamposObrigatorios(this.produto)){
       this._navController.push(BarCodeForm,  { produtoSalvar: this.produto});
     }else{
-        this._alert.create({
-            title : 'Campos obrigatórios',
-            subTitle : 'Por favor, preencha todos os campos',
-            buttons : [{ text: 'Entendi'}]
-        }).present();
+      this._alert.create({
+          title : 'Campos obrigatórios',
+          subTitle : 'Por favor, preencha todos os campos',
+          buttons : [{ text: 'Entendi'}]
+      }).present();
+
+      let array = this.getCamposVazios();
+
+      this.limparCorCampos();
+
+      array.forEach(element => {
+        element.setAttribute("style", "color: #f53d3d");
+      });
     }
+  }
+
+  getCamposVazios(){
+    let arr : any = [];
+
+     if(!this.produto.descricao)
+      arr.push(document.querySelector('#descricao'));
+
+     if(!this.produto.preco)
+      arr.push(document.querySelector('#preco'));
+
+     if(!this.produto.cor)
+      arr.push(document.querySelector('#cor'));
+
+     if(!this.produto.tamanho)
+      arr.push(document.querySelector('#tamanho'));
+
+     if(!this.produto.genero)
+      arr.push(document.querySelector('#genero'));
+
+     if(!this.produto.grupo_id){
+       let input_grupo = document.querySelector('#grupo');
+       if(null != input_grupo) arr.push(input_grupo);
+     }
+
+     return arr;
+
+  }
+
+  limparCorCampos(){
+    document.querySelector('#descricao').setAttribute("style", "color: #0084b4");
+    document.querySelector('#preco').setAttribute("style", "color: #0084b4");
+    document.querySelector('#cor').setAttribute("style", "color: #0084b4");
+    document.querySelector('#tamanho').setAttribute("style", "color: #0084b4");
+    document.querySelector('#genero').setAttribute("style", "color:#0084b4");
+
+    let input_grupo = document.querySelector('#grupo');
+    if(null != input_grupo) document.querySelector('#grupo').setAttribute("style", "color:#0084b4");
+
   }
 
   verificarDuplicidadeNome(){
