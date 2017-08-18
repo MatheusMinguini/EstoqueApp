@@ -79,7 +79,7 @@ export class FormularioPage{
     let arr : any = [];
 
      if(!this.produto.descricao)
-      arr.push(document.querySelector('#descricao'));
+      arr.push(document.querySelector('#desc'));
 
      if(!this.produto.preco)
       arr.push(document.querySelector('#preco'));
@@ -103,7 +103,7 @@ export class FormularioPage{
   }
 
   limparCorCampos(){
-    document.querySelector('#descricao').setAttribute("style", "color: #0084b4");
+    document.querySelector('#desc').setAttribute("style", "color: #0084b4");
     document.querySelector('#preco').setAttribute("style", "color: #0084b4");
     document.querySelector('#cor').setAttribute("style", "color: #0084b4");
     document.querySelector('#tamanho').setAttribute("style", "color: #0084b4");

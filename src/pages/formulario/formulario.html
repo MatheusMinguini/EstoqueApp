@@ -34,25 +34,26 @@
       </div>
 
       <div *ngIf="nomeValido">
+
         <ion-item>
-          <ion-label id="descricao" color="twitterDarkBlue" floating>Descrição</ion-label>
+          <ion-label id="desc" color="twitterDarkBlue" floating>Descrição</ion-label>
           <ion-input name="descricao" [(ngModel)]="produto.descricao" maxlength="100" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label id="preco" color="twitterDarkBlue" floating>Preço</ion-label>
-          <ion-input [(ngModel)]="produto.preco" [ngModelOptions]="{standalone: true}"></ion-input>
+          <ion-input [(ngModel)]="produto.preco" step="0.01" [ngModelOptions]="{standalone: true}"></ion-input>
           <!-- <ion-input [(ngModel)]="produto.preco" [ngModelOptions]="{standalone: true}" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" currencyMask></ion-input> -->
         </ion-item>
 
         <ion-item>
           <ion-label id="cor" color="twitterDarkBlue" floating>Cor</ion-label>
-          <ion-input name="cor" [(ngModel)]="produto.cor" clearInput></ion-input>
+          <ion-input name="cor" [(ngModel)]="produto.cor" maxlength="20" clearInput></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label id="tamanho" color="twitterDarkBlue" floating>Tamanho</ion-label>
-          <ion-input name="tamanho" [(ngModel)]="produto.tamanho" clearInput></ion-input>
+          <ion-input name="tamanho" [(ngModel)]="produto.tamanho" maxlength="3" clearInput></ion-input>
         </ion-item>
 
         <br>
