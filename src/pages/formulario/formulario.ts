@@ -116,41 +116,51 @@ export class FormularioPage{
 
   verificarDuplicidadeNome(){
 
-    const loader = this._loadingCtrl.create(
+    if(!this.produto.nome) {
+      this._alert.create({
+        title : 'Nome vazio',
+        buttons : [{ text : "Entendi"}],
+        subTitle : 'Por favor, escreva um nome para o produto'
+      }).present();
+    }else{
+      const loader = this._loadingCtrl.create(
         {
           content : "Verificando nome, aguarde"
         }
       );
 
-    loader.present();
+      loader.present();
 
-    this._http.get(this._configuracao.getAdressAPI() + '/verificaDuplicidadeNome?nome=' + this.produto.nome)
-    .map(resp => resp.json())
-      .toPromise()
-        .then(elemento => {
-          loader.dismiss();
+      this._http.get(this._configuracao.getAdressAPI() + '/verificaDuplicidadeNome?nome=' + this.produto.nome)
+      .map(resp => resp.json())
+        .toPromise()
+          .then(elemento => {
+            loader.dismiss();
 
-          if (typeof elemento == 'undefined' || elemento.length == 0) {
-             this.nomeValido = true;
-          }else{
-            this._alert.create(
-            {
-              title : 'Nome Existente',
-              buttons : [{ text : "Tudo bem"}],
-              subTitle : 'Verificamos e, já existem um produto com esse nome'
-            }).present();
-          }
-
-        }).catch (erro => {
-          loader.dismiss();
-          this._alert.create(
-            {
-              title : 'Erro',
-              buttons : [{ text : "Tudo bem", handler : () => this._navController.setRoot(HomePage) }],
-              subTitle : 'Houve um erro ao consultar o nome, tente mais tarde'
+            if (typeof elemento == 'undefined' || elemento.length == 0) {
+              this.nomeValido = true;
+            }else{
+              this._alert.create(
+              {
+                title : 'Nome Existente',
+                buttons : [{ text : "Tudo bem"}],
+                subTitle : 'Verificamos e, já existe um produto com esse nome'
+              }).present();
             }
-          ).present();
-        });
+
+          }).catch (erro => {
+            loader.dismiss();
+            this._alert.create(
+              {
+                title : 'Erro',
+                buttons : [{ text : "Tudo bem", handler : () => this._navController.setRoot(HomePage) }],
+                subTitle : 'Houve um erro ao consultar o nome, tente mais tarde'
+              }
+            ).present();
+          });
+    }
+
+    
 
   }
 

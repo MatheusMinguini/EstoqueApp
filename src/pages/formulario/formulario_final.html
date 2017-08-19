@@ -7,13 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-item class="gallery-button" text-center *ngIf="produto.img == null">
+   <ion-item class="gallery-button" text-center>
     <img id="imagemSelecionada" src="assets/img/semImagem.gif" alt="Produto">
-  </ion-item>
-
-  <ion-item class="gallery-button" text-center *ngIf="produto.img != null">
-    <img id="imagemSelecionada" alt="Produto">
-  </ion-item>
+  </ion-item> 
 
   <ion-item text-center>
     <ion-icon color="detail" name="images" ios="ios-images" md="md-images" on-tap="apresentarOpcoes()"></ion-icon>
