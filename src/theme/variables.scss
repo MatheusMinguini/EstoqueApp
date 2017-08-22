@@ -78,6 +78,12 @@ ion-header ion-icon.back-button-icon.icon {
 .filtros{
   border-right: solid 2px map-get($colors, cinza);
 }
+
+.imagem-formulario{
+  margin-left: 10px;
+  width: 0px;
+}
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
