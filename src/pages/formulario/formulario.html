@@ -38,7 +38,7 @@
           </ion-col>
           <ion-col text-center>
             <br><br>
-            <h5 color="twitterDarkBlue">Venda em estoque: R$ 150,00</h5>
+            <h5 color="twitterDarkBlue">Venda em estoque: <br><span class="valores"> R$ {{total_preco}}</span></h5>
           </ion-col>
         </ion-row>
 
@@ -47,10 +47,14 @@
             <img src="assets/img/estoque.png"/>
           </ion-col>
           <ion-col text-center>
-            <h5 color="twitterDarkBlue">Produtos cadastrados: 5</h5>
-            <h5 color="twitterDarkBlue">Data do último cadastro: 05/02/2017</h5>
+            <h5 color="twitterDarkBlue">Produtos cadastrados: <br><span class="valores">{{total_produtos}}</span></h5>
+
+            <h5 *ngIf="data_cadastro != null" color="twitterDarkBlue">Data do último cadastro:
+              <span class="valores">{{data_cadastro | date : 'dd/MM/yyyy'}}</span></h5>
+            <h5 *ngIf="data_cadastro == null" color="twitterDarkBlue">Data do último cadastro:
+              <span class="valores">Sem Informação</span></h5>
           </ion-col>
-        </ion-row>   
+        </ion-row>
       </div>
 
       <div *ngIf="nomeValido">

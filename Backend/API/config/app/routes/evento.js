@@ -15,6 +15,17 @@ module.exports = function rotas(app){
         connection.end();
     });
 
+    app.get("/info", function(request, response){
+        var connection = dbConnection();
+
+        eventoBanco.getInfo(connection, function(erro, result){
+          response.send(result);
+          if(erro != null) console.log(erro);
+        });
+
+        connection.end();
+    });
+
     app.get("/grupos", function(request, response){
 
         var connection = dbConnection();

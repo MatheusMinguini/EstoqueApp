@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController, LoadingController, AlertController, Alert } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Produto } from '../../models/Produto';
@@ -16,7 +16,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
     templateUrl : 'formulario.html'
 })
 
-export class FormularioPage{
+export class FormularioPage implements OnInit{
 
   public produto : Produto;
 
@@ -30,6 +30,10 @@ export class FormularioPage{
   public nomeValido: boolean;
   public publicoSelecionado: boolean;
 
+  public total_produtos : any;
+  public total_preco : any;
+  public data_cadastro: any;
+
 
   constructor(public _grupoService : GrupoService, public parametro : NavParams,
       public _navController : NavController,
@@ -41,18 +45,49 @@ export class FormularioPage{
 
   ngOnInit(){
 
+    const loader = this._loadingCtrl.create({
+      content : "Buscando informações, aguarde"
+    });
+
+    loader.present();
+
+    this._http.get(this._configuracao.getAdressAPI() + '/info')
+    .map(resp => resp.json())
+     .toPromise().then((el : any) => {
+        console.log(el);
+        this.total_produtos = el[0].total_produtos;
+        this.total_preco = el[0].total_preco;
+        this.data_cadastro = el[0].data_cadastro;
+        loader.dismiss();
+        if(!this.total_produtos && !this.total_preco) {
+          this.total_produtos = 0;
+          this.total_preco = 0.00;
+        }
+     }).catch(() => {
+       this.total_produtos = "Sem Informação";
+       this.total_preco = "Sem Informação";
+        this._alert.create({
+          title : 'Falha',
+          subTitle : `Oops... Houve um erro ao buscar as informações.
+          Mas fique tranquilo, isso não influenciará no cadastro`,
+          buttons : [{ text: 'Entendi'}]
+        }).present();
+
+        loader.dismiss();
+     })
+
     this.nomeValido = false;
     this.publicoSelecionado = false;
 
     this.produto = new Produto();
 
-      this._mensagem = this._alert.create({
-          title : 'Aviso',
-          buttons : [{text : 'Ok', handler : () => this._navController.setRoot(HomePage)}]
-      })
+    this._mensagem = this._alert.create({
+        title : 'Aviso',
+        buttons : [{text : 'Ok', handler : () => this._navController.setRoot(HomePage)}]
+    })
 
-      this.myColor = 'search-buttom';
-      this.isRound = false;
+    this.myColor = 'search-buttom';
+    this.isRound = false;
   }
 
   continuar(){
@@ -159,9 +194,6 @@ export class FormularioPage{
             ).present();
           });
     }
-
-    
-
   }
 
   buscarGrupo(){

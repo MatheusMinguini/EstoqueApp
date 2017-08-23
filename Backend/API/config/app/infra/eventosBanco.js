@@ -26,6 +26,12 @@ module.exports =  function(){
     connection.query("SELECT * FROM produto WHERE id = " + id, callback);
   }
 
+  this.getInfo = function(connection, callback){
+    let query = "SELECT SUM(preco) as total_preco, COUNT(*) as total_produtos, MAX(data_cadastro) as data_cadastro FROM produto";
+
+    connection.query(query, callback);
+  }
+
   this.salvar = function(connection, objeto, callback){
 
     const path = `/home/procurala/www/imagens/${objeto.nome}.jpeg`;
