@@ -15,7 +15,7 @@
         <h5 color="twitterDarkBlue"><b>Opções de Pesquisa</b></h5>
     </ion-list-header>
 
-    <ion-item *ngIf="!pesquisarCodigoBarras">
+    <ion-item *ngIf="!pesquisarCodigoBarras && !pesquisarKey">
       <ion-label color="twitterDarkBlue">
         <ion-icon ios="ios-albums" md="md-albums" item-start></ion-icon>
         Buscar todos ?
@@ -23,7 +23,15 @@
       <ion-toggle #toggleTodos color="secondary" (ionChange)="buscarTodos(toggleTodos.checked)"></ion-toggle>
     </ion-item>
 
-    <ion-item *ngIf="!pesquisarTodos">
+    <ion-item *ngIf="!pesquisarTodos && !pesquisarCodigoBarras">
+      <ion-label color="twitterDarkBlue">
+        <ion-icon ios="ios-key" md="md-key" item-start></ion-icon>
+        Palavras Chaves ?
+      </ion-label>
+      <ion-toggle #toggleKey color="secondary" (ionChange)="buscarPalavraChaves(toggleKey.checked)"></ion-toggle>
+    </ion-item>
+
+    <ion-item *ngIf="!pesquisarTodos && !pesquisarKey">
       <ion-label color="twitterDarkBlue">
         <ion-icon ios="ios-pricetags" md="md-pricetags" item-start></ion-icon>
         Código de Barras ?
@@ -32,9 +40,15 @@
     </ion-item>
   </ion-list>
 
+
+
   <ion-item *ngIf="pesquisarCodigoBarras" text-center>
       <ion-icon name="barCode" color="detail" ios="ios-barcode" md="md-barcode" on-tap="lerCodigoBarras()"></ion-icon>
       <p color="twitterDarkBlue"><b>Ler Código de Barras</b></p>
+      <br>
+      <div style="display: block; margin: 0 auto;">
+        <img src="assets/img/barcode.gif">
+      </div>
   </ion-item>
 
   <ion-item *ngIf="produto.codigo_barras != null" text-center>
@@ -43,7 +57,16 @@
     <h5 color="dark-grey"><b>Formato:</b> {{result.format}}</h5>
   </ion-item>
 
-  <ion-list class="filtros" *ngIf="!pesquisarTodos && !pesquisarCodigoBarras">
+  <ion-list class="filtros" *ngIf="pesquisarKey">
+    <form>
+      <ion-item>
+        <ion-label color="twitterDarkBlue" floating>Descrição</ion-label>
+        <ion-input name="descricao" [(ngModel)]="produto.descricao" maxlength="50" clearInput></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-list class="filtros" *ngIf="!pesquisarTodos && !pesquisarCodigoBarras && !pesquisarKey">
     <ion-list-header color="blueLight">
       <ion-row>
         <ion-col text-center>
@@ -60,11 +83,6 @@
       <ion-item>
         <ion-label color="twitterDarkBlue" floating>Nome</ion-label>
         <ion-input name="nome" [(ngModel)]="produto.nome" maxlength="20" clearInput></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label color="twitterDarkBlue" floating>Descrição</ion-label>
-        <ion-input name="descricao" [(ngModel)]="produto.descricao" maxlength="50" clearInput></ion-input>
       </ion-item>
 
       <ion-item>
@@ -125,5 +143,9 @@
   <button *ngIf="mostrarBotao" [color]="myColor" [round]="isRound" ion-button block (click)="pesquisar()">
         BUSCA LÁ
   </button>
+
+  <ion-item class="filtros" *ngIf="pesquisarTodos">
+      <img src="assets/img/fundo_app.png">
+  </ion-item>
 </ion-content>
 

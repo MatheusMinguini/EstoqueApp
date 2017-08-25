@@ -24,7 +24,7 @@ export class Produto{
   }
 
   verificarFiltros(objeto){
-    if(!objeto.nome && !objeto.descricao && !objeto.preco && !objeto.cor && !objeto.tamanho
+    if(!objeto.nome && !objeto.preco && !objeto.cor && !objeto.tamanho
       && !objeto.grupo_id && !objeto.genero && !objeto.data_cadastro){
         return false;
     }else{

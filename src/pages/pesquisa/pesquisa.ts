@@ -29,6 +29,8 @@ export class PesquisaPage implements OnInit{
 
   pesquisarTodos: boolean;
   pesquisarCodigoBarras: boolean;
+  pesquisarKey: boolean;
+
   mostrarBotao : boolean;
   publicoSelecionado : boolean;
 
@@ -43,7 +45,9 @@ export class PesquisaPage implements OnInit{
   ngOnInit() {
 
     this.pesquisarTodos = false;
+    this.pesquisarKey = false;
     this.pesquisarCodigoBarras=  false;
+
     this.mostrarBotao = true;
     this.publicoSelecionado = false;
 
@@ -98,7 +102,7 @@ export class PesquisaPage implements OnInit{
       this.produto = new Produto();
     }
 
-    if(!this.pesquisarTodos && !this.pesquisarCodigoBarras && !this.produto.verificarFiltros(this.produto) ){
+    if(!this.pesquisarTodos && !this.pesquisarCodigoBarras && !this.pesquisarKey && !this.produto.verificarFiltros(this.produto) ){
       this._alertCtrl.create({
         title: 'Filtro vazio',
         buttons: [{text: 'Entendi'}],
@@ -111,13 +115,25 @@ export class PesquisaPage implements OnInit{
   }
 
   filtrar(){
+
+    let parametro;
+
     const loader = this._loadingCtrl.create({
           content : "Procurando produtos com esse perfil"
     });
 
     loader.present();
 
-    this._http.post(this._configuracao.getAdressAPI() + '/filtrar', this.produto)
+    if(this.pesquisarKey === true ){
+      parametro = '/filtrarPorDescricao';
+      let aux : String = this.produto.descricao;
+      this.produto = new Produto();
+      this.produto.descricao = aux;
+    }else{
+      parametro = '/filtrar';
+    }
+
+    this._http.post(this._configuracao.getAdressAPI() + parametro, this.produto)
       .map(resp => resp.json())
         .toPromise().then(elemento => {
         this.produtos = elemento;
@@ -163,6 +179,15 @@ export class PesquisaPage implements OnInit{
       this.produto.codigo_barras = null;
       this.pesquisarCodigoBarras = false;
       this.mostrarBotao = true;
+    }
+  }
+
+  buscarPalavraChaves(ligado : boolean ){
+    if(ligado){
+      this.pesquisarKey = true;
+    }else{
+      this.produto.descricao = null;
+      this.pesquisarKey = false;
     }
   }
 

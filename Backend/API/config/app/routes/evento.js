@@ -145,4 +145,18 @@ module.exports = function rotas(app){
 
       connection.end();
     });
+
+    app.post("/filtrarPorDescricao", function(request, response){
+
+      var produto = request.body;
+
+      var connection = dbConnection();
+
+      eventoBanco.filtrarPorDescricao(connection, produto, function(erro, result){
+        response.send(result);
+        if(erro != null) console.log(erro);
+      });
+
+      connection.end();
+    });
 }

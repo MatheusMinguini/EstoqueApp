@@ -87,16 +87,28 @@ module.exports =  function(){
     connection.query(string, callback);
   }
 
+  this.filtrarPorDescricao = function(connection, objeto, callback){
+
+    let formatDesc = objeto.descricao.split(" ").filter((el) =>  el != "de" && el != "do" && el != "da"
+      && el != "para" && el != "pra" && el != "pro" && el != "a" && el != "e" && el != "o" && el != "um" && el != "uma" && el != "umas"
+      && el != "uns");
+
+    let sql = `SELECT * FROM produto p WHERE p.descricao LIKE '%${formatDesc[0]}%'`
+
+    formatDesc.forEach(el => {
+      sql = sql + ` OR p.descricao LIKE '%${el}%' `;
+    })
+
+    console.log(sql);
+    connection.query(sql, callback);
+
+  }
   this.filtrar = function(connection, objeto, callback){
 
-    var sql = `SELECT * FROM produto p WHERE 1 = 1 `;
+    var sql = `SELECT * FROM produto p WHERE 1 = 1`;
 
     if(objeto.nome){
         sql = sql + ` AND p.nome LIKE '%${objeto.nome}%'`;
-    }
-
-    if(objeto.descricao){
-        sql = sql + ` AND p.descricao LIKE '%${objeto.descricao}%'`;
     }
 
     if(objeto.preco){
@@ -126,9 +138,6 @@ module.exports =  function(){
     if(objeto.codigo_barras){
         sql = sql + ` AND p.codigo_barras = '${objeto.codigo_barras}'`;
     }
-
-    console.log(sql);
-
     connection.query(sql, callback);
   }
 
