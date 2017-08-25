@@ -99,7 +99,6 @@ module.exports =  function(){
       sql = sql + ` OR p.descricao LIKE '%${el}%' `;
     })
 
-    console.log(sql);
     connection.query(sql, callback);
 
   }

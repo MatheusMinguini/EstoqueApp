@@ -18,7 +18,7 @@
     <ion-item *ngIf="!pesquisarCodigoBarras && !pesquisarKey">
       <ion-label color="twitterDarkBlue">
         <ion-icon ios="ios-albums" md="md-albums" item-start></ion-icon>
-        Buscar todos ?
+        Buscar todos?
       </ion-label>
       <ion-toggle #toggleTodos color="secondary" (ionChange)="buscarTodos(toggleTodos.checked)"></ion-toggle>
     </ion-item>
@@ -26,7 +26,7 @@
     <ion-item *ngIf="!pesquisarTodos && !pesquisarCodigoBarras">
       <ion-label color="twitterDarkBlue">
         <ion-icon ios="ios-key" md="md-key" item-start></ion-icon>
-        Palavras Chaves ?
+        Palavras Chaves?
       </ion-label>
       <ion-toggle #toggleKey color="secondary" (ionChange)="buscarPalavraChaves(toggleKey.checked)"></ion-toggle>
     </ion-item>
@@ -34,13 +34,11 @@
     <ion-item *ngIf="!pesquisarTodos && !pesquisarKey">
       <ion-label color="twitterDarkBlue">
         <ion-icon ios="ios-pricetags" md="md-pricetags" item-start></ion-icon>
-        Código de Barras ?
+        Código de Barras?
       </ion-label>
       <ion-toggle #toggleCod color="secondary" (ionChange)="buscarCodigoBarras(toggleCod.checked)"></ion-toggle>
     </ion-item>
   </ion-list>
-
-
 
   <ion-item *ngIf="pesquisarCodigoBarras" text-center>
       <ion-icon name="barCode" color="detail" ios="ios-barcode" md="md-barcode" on-tap="lerCodigoBarras()"></ion-icon>
