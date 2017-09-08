@@ -37,9 +37,9 @@
             <h5 color="dark-grey"><b>Cor :</b></h5>
             <h5 color="dark-grey"><b>Tamanho :</b> </h5>
             <h5 color="dark-grey"><b>Data do cadastro :</b> </h5>
-            <!-- <h5 color="dark-grey"><b>Grupo:</b> {{grupoDoProduto.nome}}</h5> -->
+            <h5 color="dark-grey"><b>Grupo:</b></h5>
             <h5 color="dark-grey"><b>Público  :</b></h5>
-            
+
           </ion-col>
           <ion-col text-left>
             <h5 [color]="cor">{{produto.codigo_barras}}</h5>
@@ -47,7 +47,7 @@
             <h5 color="dark-grey"> {{produto.cor}}</h5>
             <h5 color="dark-grey"> {{produto.tamanho}}</h5>
             <h5 color="dark-grey"> {{produto.data_cadastro | date:"dd/MM/yyyy"}}</h5>
-            <!-- <h5 color="dark-grey"><b>Grupo:</b> {{grupoDoProduto.nome}}</h5> -->
+            <h5 color="dark-grey"> {{grupoDoProduto.__zone_symbol__value}}</h5>
             <h5 color="dark-grey" *ngIf="produto.genero === 'm'">Masculino</h5>
             <h5 color="dark-grey" *ngIf="produto.genero === 'f'">Feminino</h5>
           </ion-col>

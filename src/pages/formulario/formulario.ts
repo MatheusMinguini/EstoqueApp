@@ -54,7 +54,6 @@ export class FormularioPage implements OnInit{
     this._http.get(this._configuracao.getAdressAPI() + '/info')
     .map(resp => resp.json())
      .toPromise().then((el : any) => {
-        console.log(el);
         this.total_produtos = el[0].total_produtos;
         this.total_preco = el[0].total_preco;
         this.data_cadastro = el[0].data_cadastro;
@@ -205,6 +204,7 @@ export class FormularioPage implements OnInit{
     loader.present();
 
     this._grupoService.buscarGruposInserir(this.produto.genero).then(elemento => {
+      console.log(elemento);
         loader.dismiss();
         this.grupos = elemento;
         this.publicoSelecionado = true;
@@ -219,5 +219,7 @@ export class FormularioPage implements OnInit{
           ).present();
         console.log(erro);
       })
+
+
   }
 }

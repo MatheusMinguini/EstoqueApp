@@ -18,7 +18,7 @@ export class EscolhaPage{
 
     image: string;
 
-    grupoDoProduto: Grupo;
+    grupoDoProduto;
 
     grupos : Array<Grupo>;
 
@@ -65,10 +65,20 @@ export class EscolhaPage{
         this.cor = 'dark-grey';
       }
 
-      /*this.grupoDoProduto = this._grupoService.buscarGrupos().then(elemento => {
-        return elemento.find((objPromise) => objPromise.id == this.produto.grupo_id);
-      }).catch (erro => console.log("Erro: " + erro));*/
+      this.grupoDoProduto = this._grupoService.buscarGrupos()
+        .then(elemento => {
+          let grupoObj = elemento.find((objPromise) => objPromise.id == this.produto.grupo_id);
+          this.teste();
+          return grupoObj.nome;
+        })
+         .catch (erro => console.log("Erro: " + erro));
 
+
+    }
+
+
+    teste(){
+      console.log(this.grupoDoProduto);
     }
 
     compartilharWhatsApp(){
@@ -106,7 +116,7 @@ export class EscolhaPage{
         this.msgSucesso.present();
       }).catch(() => {
         this.criarMensagem('Erro ao compartilhar', 'Encontramos um erro ao compartilhar, tente mais tarde').present();
-      }); 
+      });
     }
 
     criarMensagem (titulo: string, subtitle: string) : Alert {
